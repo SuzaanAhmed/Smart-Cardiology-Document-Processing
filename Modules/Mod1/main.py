@@ -1,18 +1,24 @@
+import os
 from OCR import extract_text_from_image
 from NLP import extract_fields
 
-# Path to your ECG image
-image_path = "data/ecg_clean.png"
+data_folder = "data"
 
-# Step 1: OCR
-text = extract_text_from_image(image_path)
+for file in os.listdir(data_folder):
+    if file.lower().endswith((".jpg", ".png", ".jpeg")):
+        path = os.path.join(data_folder, file)
 
-print("\n================ OCR TEXT ================\n")
-print(text[:1500])
+        print("\n========================================")
+        print(f"📄 Processing: {file}")
+        print("========================================")
 
-# Step 2: NLP Extraction
-data = extract_fields(text)
+        text = extract_text_from_image(path)
 
-print("\n============= EXTRACTED DATA =============\n")
-for key, value in data.items():
-    print(f"{key}: {value}")
+        print("\n--- OCR TEXT ---\n")
+        print(text[:800])
+
+        data = extract_fields(text)
+
+        print("\n--- EXTRACTED DATA ---\n")
+        for k, v in data.items():
+            print(f"{k}: {v}")

@@ -1,41 +1,39 @@
+import easyocr
 import cv2
-import pytesseract
-import os
 
-# Set Tesseract path (Windows)
-tesseract_path = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-
-if os.path.exists(tesseract_path):
-    pytesseract.pytesseract.tesseract_cmd = tesseract_path
-
-
-def preprocess_image(image_path):
-    img = cv2.imread(image_path)
-
-    # Rotate image (important for your ECG)
-    img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
-
-    # Resize (improves OCR)
-    img = cv2.resize(img, None, fx=2, fy=2)
-
-    # Convert to grayscale
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-    # Reduce noise
-    gray = cv2.GaussianBlur(gray, (5, 5), 0)
-
-    # Binary threshold
-    _, thresh = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)
-
-    return thresh
+# Initialize EasyOCR
+reader = easyocr.Reader(['en'], gpu=False)
 
 
 def extract_text_from_image(image_path):
-    processed = preprocess_image(image_path)
+    img = cv2.imread(image_path)
 
-    # OCR configuration
-    custom_config = r'--oem 3 --psm 6'
+    # Resize
+    img = cv2.resize(img, None, fx=1.5, fy=1.5)
 
-    text = pytesseract.image_to_string(processed, config=custom_config)
+    h, w, _ = img.shape
+
+    # Rotate if vertical
+    if h > w:
+        img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
+
+    h, w, _ = img.shape
+
+    # Focus on top area
+    crop = img[0:int(h * 0.40), :]
+
+    # Grayscale
+    gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
+
+    # Slight blur
+    gray = cv2.GaussianBlur(gray, (3, 3), 0)
+
+    # OCR
+    results = reader.readtext(gray)
+
+    text = ""
+    for (bbox, txt, prob) in results:
+        if prob > 0.4:
+            text += txt + " "
 
     return text
