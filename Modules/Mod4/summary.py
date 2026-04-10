@@ -1,42 +1,8 @@
-# from transformers import pipeline
+# the code right now does not take input from the other modules, but rather takes it from within the code
+# typed in the "text"
 
-# class ReportSummarizer:
-    
-#     def __init__(self):
-#         print("Loading model... (first time takes ~30 sec)")
-#         self.summarizer = pipeline("summarization", model="t5-small")
+# once the previous modules are done, lemme know
 
-#     def generate_summary(self, text):
-#         input_text = "summarize: " + text
-#         result = self.summarizer(input_text, max_length=100, min_length=30)
-#         return result[0]['summary_text']
-
-#     def extract_key_findings(self, summary):
-#         sentences = summary.split(".")
-#         return [s.strip() for s in sentences[:2] if s.strip()]
-
-#     def extract_critical_points(self, summary):
-#         sentences = summary.split(".")
-#         return [s.strip() for s in sentences[-1:] if s.strip()]
-
-
-# # 🔽 Test your module
-# if __name__ == "__main__":
-#     text = """
-#     Patient shows irregular heart rhythm with mild ST elevation.
-#     History of hypertension and diabetes.
-#     Further cardiac evaluation is recommended.
-#     """
-
-#     summarizer = ReportSummarizer()
-
-#     summary = summarizer.generate_summary(text)
-#     key_points = summarizer.extract_key_findings(summary)
-#     critical = summarizer.extract_critical_points(summary)
-
-#     print("\nSUMMARY:\n", summary)
-#     print("\nKEY FINDINGS:\n", key_points)
-#     print("\nCRITICAL POINTS:\n", critical)
 
 from transformers import pipeline
 import re
@@ -47,34 +13,6 @@ class ReportSummarizer:
         print("Loading model...")
         self.summarizer = pipeline("summarization", model="t5-small")
 
-    # def generate_summary(self, text):
-    #     input_text = "summarize: " + text
-
-    #     result = self.summarizer(
-    #         input_text,
-    #         max_length=60,
-    #         min_length=20,
-    #         do_sample=False
-    #     )
-
-    #     return result[0]['summary_text']
-    # def generate_summary(self, text):
-    #     input_text = "summarize: " + text
-
-    #     result = self.summarizer(
-    #         input_text,
-    #         max_length=60,
-    #         min_length=20,
-    #         do_sample=False
-    #     )
-
-    #     summary = result[0]['summary_text']
-
-    #     # Clean formatting
-    #     summary = summary.strip()
-    #     summary = summary[0].upper() + summary[1:]  # Capitalize first letter
-
-    #     return summary
     def generate_summary(self, text):
         input_text = "summarize: " + text
 
@@ -94,25 +32,10 @@ class ReportSummarizer:
 
         return summary
 
-    # def extract_key_findings(self, summary):
-    #     sentences = [s.strip() for s in summary.split('.') if s.strip()]
-    #     return sentences[:2]
-
     def extract_key_findings(self, summary):
         sentences = re.split(r'\.\s*', summary)
         sentences = [s.strip().capitalize() for s in sentences if s.strip()]
         return sentences[:2]
-
-    # def extract_critical_points(self, text):
-    #     critical_keywords = ["risk", "critical", "emergency", "severe", "urgent"]
-
-    #     critical = []
-    #     for sentence in text.split('.'):
-    #         for word in critical_keywords:
-    #             if word in sentence.lower():
-    #                 critical.append(sentence.strip())
-
-    #     return list(set(critical))  # remove duplicates
 
     def extract_critical_points(self, text):
         critical_keywords = [
@@ -139,8 +62,6 @@ class ReportSummarizer:
             "critical_points": critical_points
         }
 
-
-# 🔽 Test
 if __name__ == "__main__":
     text = """
     Patient shows irregular heart rhythm with mild ST elevation.
@@ -153,7 +74,6 @@ if __name__ == "__main__":
     result = summarizer.process_report(text)
 
     print("\nFINAL OUTPUT:\n")
-    # print(result)
     print("\n========== REPORT SUMMARY ==========\n")
 
     print("Summary:")
