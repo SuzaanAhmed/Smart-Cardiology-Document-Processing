@@ -2,7 +2,7 @@ from OCR import extract_text_from_image
 from NLP import extract_fields
 
 # Path to your ECG image
-image_path = "data/ecg1.jpg"
+image_path = "data/ecg2.jpg"
 
 # Step 1: OCR
 text = extract_text_from_image(image_path)
