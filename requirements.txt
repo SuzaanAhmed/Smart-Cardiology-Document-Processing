@@ -1,5 +1,12 @@
 pytesseract
 opencv-python
-pillow
 numpy
+pillow
 Flask
+torch
+transformers==4.41.2
+sentencepiece
+scikit-learn==1.8.0
+pandas==3.0.1
+joblib==1.5.3
+
