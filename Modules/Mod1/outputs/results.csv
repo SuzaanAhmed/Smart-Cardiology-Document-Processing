@@ -1,2 +1,2 @@
-Robert Hayes,62,N/A,06/12/2023,76,172,96,368,Normal sinus rhythm,88.89%
-Angela Morris,49,Female,11/03/2024,92,190,104,382,N/A,88.89%
+Patient Name,Age,Gender,ECG Date,Heart Rate,PR Interval,QRS Duration,QT Interval,Diagnosis,Confidence Score
+Willy McKee,61,Male,2/17/2011,80,186,102,360,Normal sinus rhythm,100.00%
