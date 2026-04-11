@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import os
 from OCR import extract_text_from_image
 from NLP import extract_fields
-from storage import save_all   # ⭐ NEW
+from storage import save_all
 
 app = Flask(__name__)
 
@@ -24,7 +24,6 @@ def index():
             text = extract_text_from_image(path)
             data = extract_fields(text)
 
-            # 🔥 SAVE USING STORAGE LAYER
             extracted_data = save_all(data)
 
     return render_template("index.html", data=extracted_data)

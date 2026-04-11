@@ -1,4 +1,9 @@
 Patient Name,Age,Gender,ECG Date,Heart Rate,PR Interval,QRS Duration,QT Interval,Diagnosis,Confidence Score
-Willy McKee,61,Male,2/17/2011,80,186,102,360,Normal sinus rhythm,1.0
-Robert Hayes,62,,06/12/2023,76,172,96,368,Normal sinus rhythm,0.89
-Angela Morris,49,Female,11/03/2024,92,190,104,382,N/A,0.89
+Robert Hayes,62,,06/12/2023,76,172,96,368,"St T Abnormalities, Sinus Rhythm, Normal Sinus Rhythm",0.89
+Angela Morris,49,Female,11/03/2024,92,190,104,382,Sinus Tachycardia,1.0
+David Chen,66,Male,08/27/2022,64,160,88,400,"Infarction, Sinus Rhythm, Left Axis Deviation, Normal Sinus Rhythm",1.0
+Willy McKee,61,Male,2/17/2011,80,186,102,360,"St T Changes, Ischemic, Infarction, Sinus Rhythm, Normal Sinus Rhythm",1.0
+Maria Gonzalez,41,Female,01/15/2025,58,180,92,390,Sinus Bradycardia,1.0
+James Patel,54,Male,03/09/2024,84,200,108,410,"St Depression, First Degree Av Block",1.0
+Kevin Brooks,56,Male,02/02/2025,88,182,100,376,"Normal Sinus Rhythm, Sinus Rhythm",1.0
+Priya Sharma,35,Female,07/18/2024,102,168,96,350,Sinus Tachycardia,1.00

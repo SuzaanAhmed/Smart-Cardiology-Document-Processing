@@ -1,17 +1,5 @@
 [
     {
-        "Patient Name": "Willy McKee",
-        "Age": "61",
-        "Gender": "Male",
-        "ECG Date": "2/17/2011",
-        "Heart Rate": "80",
-        "PR Interval": "186",
-        "QRS Duration": "102",
-        "QT Interval": "360",
-        "Diagnosis": "Normal sinus rhythm",
-        "Confidence Score": "1.00"
-    },
-    {
         "Patient Name": "Robert Hayes",
         "Age": "62",
         "Gender": "N/A",
@@ -20,7 +8,7 @@
         "PR Interval": "172",
         "QRS Duration": "96",
         "QT Interval": "368",
-        "Diagnosis": "Normal sinus rhythm",
+        "Diagnosis": "St T Abnormalities, Sinus Rhythm, Normal Sinus Rhythm",
         "Confidence Score": "0.89"
     },
     {
@@ -32,7 +20,79 @@
         "PR Interval": "190",
         "QRS Duration": "104",
         "QT Interval": "382",
-        "Diagnosis": "N/A",
-        "Confidence Score": "0.89"
+        "Diagnosis": "Sinus Tachycardia",
+        "Confidence Score": "1.00"
+    },
+    {
+        "Patient Name": "David Chen",
+        "Age": "66",
+        "Gender": "Male",
+        "ECG Date": "08/27/2022",
+        "Heart Rate": "64",
+        "PR Interval": "160",
+        "QRS Duration": "88",
+        "QT Interval": "400",
+        "Diagnosis": "Infarction, Sinus Rhythm, Left Axis Deviation, Normal Sinus Rhythm",
+        "Confidence Score": "1.00"
+    },
+    {
+        "Patient Name": "Willy McKee",
+        "Age": "61",
+        "Gender": "Male",
+        "ECG Date": "2/17/2011",
+        "Heart Rate": "80",
+        "PR Interval": "186",
+        "QRS Duration": "102",
+        "QT Interval": "360",
+        "Diagnosis": "St T Changes, Ischemic, Infarction, Sinus Rhythm, Normal Sinus Rhythm",
+        "Confidence Score": "1.00"
+    },
+    {
+        "Patient Name": "Maria Gonzalez",
+        "Age": "41",
+        "Gender": "Female",
+        "ECG Date": "01/15/2025",
+        "Heart Rate": "58",
+        "PR Interval": "180",
+        "QRS Duration": "92",
+        "QT Interval": "390",
+        "Diagnosis": "Sinus Bradycardia",
+        "Confidence Score": "1.00"
+    },
+    {
+        "Patient Name": "James Patel",
+        "Age": "54",
+        "Gender": "Male",
+        "ECG Date": "03/09/2024",
+        "Heart Rate": "84",
+        "PR Interval": "200",
+        "QRS Duration": "108",
+        "QT Interval": "410",
+        "Diagnosis": "St Depression, First Degree Av Block",
+        "Confidence Score": "1.00"
+    },
+    {
+        "Patient Name": "Kevin Brooks",
+        "Age": "56",
+        "Gender": "Male",
+        "ECG Date": "02/02/2025",
+        "Heart Rate": "88",
+        "PR Interval": "182",
+        "QRS Duration": "100",
+        "QT Interval": "376",
+        "Diagnosis": "Normal Sinus Rhythm, Sinus Rhythm",
+        "Confidence Score": "1.00"
+    },
+    {
+        "Patient Name": "Priya Sharma",
+        "Age": "35",
+        "Gender": "Female",
+        "ECG Date": "07/18/2024",
+        "Heart Rate": "102",
+        "PR Interval": "168",
+        "QRS Duration": "96",
+        "QT Interval": "350",
+        "Diagnosis": "Sinus Tachycardia",
+        "Confidence Score": "1.00"
     }
 ]

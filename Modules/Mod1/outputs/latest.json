@@ -1,12 +1,12 @@
 {
-    "Patient Name": "Angela Morris",
-    "Age": "49",
+    "Patient Name": "Priya Sharma",
+    "Age": "35",
     "Gender": "Female",
-    "ECG Date": "11/03/2024",
-    "Heart Rate": "92",
-    "PR Interval": "190",
-    "QRS Duration": "104",
-    "QT Interval": "382",
-    "Diagnosis": "N/A",
-    "Confidence Score": "0.89"
+    "ECG Date": "07/18/2024",
+    "Heart Rate": "102",
+    "PR Interval": "168",
+    "QRS Duration": "96",
+    "QT Interval": "350",
+    "Diagnosis": "Sinus Tachycardia",
+    "Confidence Score": "1.00"
 }
