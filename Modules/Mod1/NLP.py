@@ -108,6 +108,6 @@ def extract_fields(text):
 
     # CONFIDENCE
     found = sum(1 for v in data.values() if v != "Not Found")
-    data['Confidence Score'] = f"{(found/9)*100:.2f}%"
+    data['Confidence Score'] = f"{found/9:.2f}"
 
     return data

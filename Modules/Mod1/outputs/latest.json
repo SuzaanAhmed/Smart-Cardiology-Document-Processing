@@ -1,12 +1,12 @@
 {
-    "Patient Name": "Willy McKee",
-    "Age": "61",
-    "Gender": "Male",
-    "ECG Date": "2/17/2011",
-    "Heart Rate": "80",
-    "PR Interval": "186",
-    "QRS Duration": "102",
-    "QT Interval": "360",
-    "Diagnosis": "Normal sinus rhythm",
-    "Confidence Score": "100.00%"
+    "Patient Name": "Angela Morris",
+    "Age": "49",
+    "Gender": "Female",
+    "ECG Date": "11/03/2024",
+    "Heart Rate": "92",
+    "PR Interval": "190",
+    "QRS Duration": "104",
+    "QT Interval": "382",
+    "Diagnosis": "N/A",
+    "Confidence Score": "0.89"
 }
