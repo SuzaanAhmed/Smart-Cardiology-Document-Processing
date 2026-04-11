@@ -1,9 +1,7 @@
 import easyocr
 import cv2
 
-# Initialize EasyOCR
 reader = easyocr.Reader(['en'], gpu=False)
-
 
 def extract_text_from_image(image_path):
     img = cv2.imread(image_path)
