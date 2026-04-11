@@ -1,0 +1,26 @@
+[
+    {
+        "Patient Name": "Robert Hayes",
+        "Age": "62",
+        "Gender": "N/A",
+        "ECG Date": "06/12/2023",
+        "Heart Rate": "76",
+        "PR Interval": "172",
+        "QRS Duration": "96",
+        "QT Interval": "368",
+        "Diagnosis": "Normal sinus rhythm",
+        "Confidence Score": "88.89%"
+    },
+    {
+        "Patient Name": "Angela Morris",
+        "Age": "49",
+        "Gender": "Female",
+        "ECG Date": "11/03/2024",
+        "Heart Rate": "92",
+        "PR Interval": "190",
+        "QRS Duration": "104",
+        "QT Interval": "382",
+        "Diagnosis": "N/A",
+        "Confidence Score": "88.89%"
+    }
+]
