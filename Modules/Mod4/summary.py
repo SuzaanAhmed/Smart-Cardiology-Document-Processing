@@ -28,6 +28,49 @@ def convert_to_text(data):
 
     return text
 
+
+
+def analyze_severity(data):
+    diagnosis = data.get("Diagnosis", "").lower()
+
+    # Safe numeric parsing
+    try:
+        heart_rate = int(data.get("Heart Rate") or 0)
+    except:
+        heart_rate = 0
+
+    # Critical conditions
+    critical_conditions = [
+        "st elevation",
+        "ventricular tachycardia",
+        "cardiac arrest",
+        "heart failure"
+    ]
+
+    # Moderate conditions
+    moderate_conditions = [
+        "st depression",
+        "av block",
+        "arrhythmia"
+    ]
+
+    # Rule 1: Keyword-based critical
+    for condition in critical_conditions:
+        if condition in diagnosis:
+            return "CRITICAL"
+
+    # Rule 2: Heart rate abnormal
+    if heart_rate > 120 or heart_rate < 50:
+        return "CRITICAL"
+
+    # Rule 3: Moderate
+    for condition in moderate_conditions:
+        if condition in diagnosis:
+            return "MODERATE"
+
+    return "NORMAL"
+
+
 class ReportSummarizer:
     
     def __init__(self):
@@ -65,30 +108,85 @@ class ReportSummarizer:
             "urgent", "immediate", "attention", "complication"
         ]
 
+        # critical = []
+        # for sentence in text.split('.'):
+        #     for word in critical_keywords:
+        #         if word in sentence.lower():
+        #             critical.append(sentence.strip().capitalize())
+
+        # return list(set(critical))
+
         critical = []
         for sentence in text.split('.'):
             for word in critical_keywords:
                 if word in sentence.lower():
-                    critical.append(sentence.strip().capitalize())
+                    cleaned = sentence.strip().capitalize()
+                    if cleaned:
+                        critical.append(cleaned)
 
         return list(set(critical))
 
-    def process_report(self, text):
+    # def process_report(self, text, data):
+    #     summary = self.generate_summary(text)
+    #     key_findings = self.extract_key_findings(summary)
+    #     critical_points = self.extract_critical_points(text)
+
+    #     return {
+    #         "summary": summary,
+    #         "key_findings": key_findings,
+    #         "critical_points": critical_points
+    #     }
+    
+
+    def process_report(self, text, data):
         summary = self.generate_summary(text)
         key_findings = self.extract_key_findings(summary)
         critical_points = self.extract_critical_points(text)
+        severity = analyze_severity(data)
 
         return {
             "summary": summary,
             "key_findings": key_findings,
-            "critical_points": critical_points
+            "critical_points": critical_points,
+            "severity": severity
         }
 
+
+
+# def save_to_file(result, patient_name):
+#     # Clean filename
+#     filename = patient_name.replace(" ", "_") + "_summary.txt"
+
+#     # Save inside outputs folder (create if not exists)
+#     output_dir = "outputs"
+#     os.makedirs(output_dir, exist_ok=True)
+
+#     filepath = os.path.join(output_dir, filename)
+
+#     with open(filepath, "w") as f:
+#         f.write("========== REPORT SUMMARY ==========\n\n")
+
+#         f.write("Summary:\n")
+#         f.write(result["summary"] + "\n\n")
+
+#         f.write("Key Findings:\n")
+#         for i, point in enumerate(result["key_findings"], 1):
+#             f.write(f"{i}. {point}\n")
+
+#         f.write("\nCritical Points:\n")
+#         if result["critical_points"]:
+#             for i, point in enumerate(result["critical_points"], 1):
+#                 f.write(f"{i}. {point}\n")
+#         else:
+#             f.write("None\n")
+
+#         f.write("\n====================================\n")
+
+#     print(f"\n File saved at: {filepath}")
+
 def save_to_file(result, patient_name):
-    # Clean filename
     filename = patient_name.replace(" ", "_") + "_summary.txt"
 
-    # Save inside outputs folder (create if not exists)
     output_dir = "outputs"
     os.makedirs(output_dir, exist_ok=True)
 
@@ -97,6 +195,10 @@ def save_to_file(result, patient_name):
     with open(filepath, "w") as f:
         f.write("========== REPORT SUMMARY ==========\n\n")
 
+        # Highlight critical condition
+        if result["severity"] == "CRITICAL":
+            f.write(" CRITICAL CONDITION \n\n")
+
         f.write("Summary:\n")
         f.write(result["summary"] + "\n\n")
 
@@ -104,7 +206,10 @@ def save_to_file(result, patient_name):
         for i, point in enumerate(result["key_findings"], 1):
             f.write(f"{i}. {point}\n")
 
-        f.write("\nCritical Points:\n")
+        f.write("\nSeverity Level:\n")
+        f.write(result["severity"] + "\n\n")
+
+        f.write("Critical Points:\n")
         if result["critical_points"]:
             for i, point in enumerate(result["critical_points"], 1):
                 f.write(f"{i}. {point}\n")
@@ -113,25 +218,65 @@ def save_to_file(result, patient_name):
 
         f.write("\n====================================\n")
 
-    print(f"\n File saved at: {filepath}")
+    print(f"\nFile saved at: {filepath}")
+
+
+
+# if __name__ == "__main__":
+
+#     summarizer = ReportSummarizer()
+
+#     # Load data from Module 1
+#     data = load_module1_data()
+
+#     # taking patients name from mod1 output
+#     patient_name = data.get("Patient Name", "Unknown")
+
+#     # Convert to text
+#     text = convert_to_text(data)
+
+#     # Process
+#     result = summarizer.process_report(text)
+
+#     print("\n========== REPORT SUMMARY ==========\n")
+
+#     print("Summary:")
+#     print(result["summary"])
+
+#     print("\nKey Findings:")
+#     for i, point in enumerate(result["key_findings"], 1):
+#         print(f"{i}. {point}")
+
+#     print("\nCritical Points:")
+#     if result["critical_points"]:
+#         for i, point in enumerate(result["critical_points"], 1):
+#             print(f"{i}. {point}")
+#     else:
+#         print("None")
+
+#     print("\n====================================\n")
+
+#     # save file
+#     save_to_file(result, patient_name)
 
 
 if __name__ == "__main__":
 
     summarizer = ReportSummarizer()
 
-    # Load data from Module 1
+    # Load Module 1 output
     data = load_module1_data()
 
-    # taking patients name from mod1 output
+    # Get patient name dynamically
     patient_name = data.get("Patient Name", "Unknown")
 
     # Convert to text
     text = convert_to_text(data)
 
-    # Process
-    result = summarizer.process_report(text)
+    # Process report
+    result = summarizer.process_report(text, data)
 
+    # ---------------- PRINT OUTPUT ----------------
     print("\n========== REPORT SUMMARY ==========\n")
 
     print("Summary:")
@@ -140,6 +285,8 @@ if __name__ == "__main__":
     print("\nKey Findings:")
     for i, point in enumerate(result["key_findings"], 1):
         print(f"{i}. {point}")
+
+    print("\n Severity Level:", result["severity"])
 
     print("\nCritical Points:")
     if result["critical_points"]:
@@ -150,5 +297,5 @@ if __name__ == "__main__":
 
     print("\n====================================\n")
 
-    # save file
+    # Save to file
     save_to_file(result, patient_name)
