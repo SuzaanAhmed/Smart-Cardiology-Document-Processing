@@ -1,13 +1,13 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 import pandas as pd
 import numpy as np
-from sklearn.model_selection import train_test_split
+import json
 from sklearn.ensemble import RandomForestClassifier
 
 app = Flask(__name__)
 
 # -------------------------------
-# DATASET
+# TRAINING DATA
 # -------------------------------
 data = {
     "Age":[45,50,36,60,55,48,39,65,52,47],
@@ -21,31 +21,43 @@ data = {
 }
 
 df = pd.DataFrame(data)
-
 X = df.drop("Risk", axis=1)
 y = df["Risk"]
 
 model = RandomForestClassifier()
-model.fit(X,y)
+model.fit(X, y)
 
 # -------------------------------
-# ROUTES
+# HOME ROUTE
 # -------------------------------
 @app.route('/')
 def home():
-    return render_template("index.html")
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    age = int(request.form['age'])
-    gender = int(request.form['gender'])
-    bp = int(request.form['bp'])
-    diabetes = int(request.form['diabetes'])
-    smoking = int(request.form['smoking'])
-    ecg = int(request.form['ecg'])
-    chol = int(request.form['chol'])
+    # read hospital-style JSON
+    with open("patient_report.json") as f:
+        data = json.load(f)
+
+#with open("../Mod1/outputs/patient_report.json") as f:
+#    data = json.load(f)
+
+
+    patient = data.get("patient", {})
+    vitals = data.get("vitals", {})
+
+    # extract values
+    age = patient.get("age", 0)
+    gender = 1 if patient.get("gender", "").lower() == "male" else 0
+
+    bp = vitals.get("blood_pressure", 0)
+    chol = vitals.get("cholesterol", 0)
+
+    diabetes = 1 if vitals.get("diabetes", "").lower() == "yes" else 0
+    smoking = 1 if vitals.get("smoking", "").lower() == "yes" else 0
+    ecg = 1 if vitals.get("ecg_result", "").lower() == "abnormal" else 0
 
     input_data = np.array([[age, gender, bp, diabetes, smoking, ecg, chol]])
+
+    # prediction
     prob = model.predict_proba(input_data)[0][1]
 
     if prob < 0.33:
@@ -58,10 +70,32 @@ def predict():
         risk = "HIGH"
         action = "Immediate Medical Attention"
 
-    return render_template("index.html",
-                           prediction=risk,
-                           probability=round(prob*100,2),
-                           action=action)
+    # -------------------------------
+    # SAVE OUTPUT
+    # -------------------------------
+    output_data = {
+        "patient": patient,
+        "vitals": vitals,
+        "prediction": {
+            "risk": risk,
+            "probability": round(prob*100,2),
+            "action": action
+        }
+    }
 
+    with open("prediction_output.json", "w") as f:
+        json.dump(output_data, f, indent=4)
+
+    # -------------------------------
+    return render_template(
+        "index.html",
+        patient=patient,
+        vitals=vitals,
+        prediction=risk,
+        probability=round(prob*100,2),
+        action=action
+    )
+
+# -------------------------------
 if __name__ == "__main__":
     app.run(debug=True)
