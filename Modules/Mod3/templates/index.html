@@ -2,14 +2,12 @@
 <html>
 <head>
 <title>Cardiac Risk Prediction</title>
-
 <style>
 body{
 font-family: Arial;
 background:#f4f6f9;
 text-align:center;
 }
-
 .container{
 background:white;
 padding:30px;
@@ -18,77 +16,31 @@ width:400px;
 border-radius:10px;
 box-shadow:0 0 10px gray;
 }
-
-input, select{
-width:90%;
-padding:10px;
-margin:5px;
-}
-
-button{
-background:#007bff;
-color:white;
-padding:10px 20px;
-border:none;
-cursor:pointer;
-}
-
-.result{
-margin-top:20px;
-font-weight:bold;
-}
 </style>
 </head>
-
 <body>
 
 <div class="container">
 <h2>Cardiac Risk Prediction</h2>
 
-<form method="POST" action="/predict">
+<h3>Patient Details</h3>
+<p>Name: {{ patient.name }}</p>
+<p>Age: {{ patient.age }}</p>
+<p>Gender: {{ patient.gender }}</p>
 
-<input type="number" name="age" placeholder="Enter Age (e.g., 45)" required>
+<h3>Vitals</h3>
+<p>Blood Pressure: {{ vitals.blood_pressure }}</p>
+<p>Cholesterol: {{ vitals.cholesterol }}</p>
+<p>Diabetes: {{ vitals.diabetes }}</p>
+<p>Smoking: {{ vitals.smoking }}</p>
+<p>ECG: {{ vitals.ecg_result }}</p>
 
-<select name="gender" required>
-<option value="">Select Gender</option>
-<option value="1">Male</option>
-<option value="0">Female</option>
-</select>
+<hr>
 
-<input type="number" name="bp" placeholder="Enter Blood Pressure (e.g., 130)" required>
-
-<select name="diabetes" required>
-<option value="">Diabetes? (Yes/No)</option>
-<option value="1">Yes</option>
-<option value="0">No</option>
-</select>
-
-<select name="smoking" required>
-<option value="">Smoking? (Yes/No)</option>
-<option value="1">Yes</option>
-<option value="0">No</option>
-</select>
-
-<select name="ecg" required>
-<option value="">ECG Result</option>
-<option value="1">Abnormal</option>
-<option value="0">Normal</option>
-</select>
-
-<input type="number" name="chol" placeholder="Enter Cholesterol (e.g., 220)" required>
-
-<br><br>
-<button type="submit">Predict Risk</button>
-
-</form>
-
-{% if prediction %}
-<div class="result">
-<h3>Risk Level: {{ prediction }}</h3>
-<p>Probability: {{ probability }}%</p>
-<p>Action: {{ action }}</p>
-</div>
-{% endif %}
+<h3>Prediction</h3>
+<p><b>Risk Level:</b> {{ prediction }}</p>
+<p><b>Probability:</b> {{ probability }}%</p>
+<p><b>Action:</b> {{ action }}</p>
 
 </div>
 
