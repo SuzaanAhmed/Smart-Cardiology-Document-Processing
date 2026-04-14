@@ -6,12 +6,34 @@
 
 from transformers import pipeline
 import re
+import json
+import os
+
+def load_module1_data():
+    path = os.path.join("..", "Mod1", "outputs", "latest.json")
+
+    with open(path, "r") as f:
+        data = json.load(f)
+
+    return data
+
+def convert_to_text(data):
+    text = f"""
+    Patient {data.get("Patient Name", "")}, age {data.get("Age", "")}, {data.get("Gender", "")}.
+    ECG taken on {data.get("ECG Date", "")}.
+    Heart rate is {data.get("Heart Rate", "")} bpm.
+    PR interval {data.get("PR Interval", "")}, QRS duration {data.get("QRS Duration", "")}, QT interval {data.get("QT Interval", "")}.
+    Diagnosis: {data.get("Diagnosis", "")}.
+    """
+
+    return text
 
 class ReportSummarizer:
     
     def __init__(self):
         print("Loading model...")
-        self.summarizer = pipeline("summarization", model="t5-small")
+        # self.summarizer = pipeline("summarization", model="t5-small")
+        self.summarizer = pipeline("summarization", model="t5-small", framework="pt")
 
     def generate_summary(self, text):
         input_text = "summarize: " + text
@@ -62,18 +84,54 @@ class ReportSummarizer:
             "critical_points": critical_points
         }
 
+def save_to_file(result, patient_name):
+    # Clean filename
+    filename = patient_name.replace(" ", "_") + "_summary.txt"
+
+    # Save inside outputs folder (create if not exists)
+    output_dir = "outputs"
+    os.makedirs(output_dir, exist_ok=True)
+
+    filepath = os.path.join(output_dir, filename)
+
+    with open(filepath, "w") as f:
+        f.write("========== REPORT SUMMARY ==========\n\n")
+
+        f.write("Summary:\n")
+        f.write(result["summary"] + "\n\n")
+
+        f.write("Key Findings:\n")
+        for i, point in enumerate(result["key_findings"], 1):
+            f.write(f"{i}. {point}\n")
+
+        f.write("\nCritical Points:\n")
+        if result["critical_points"]:
+            for i, point in enumerate(result["critical_points"], 1):
+                f.write(f"{i}. {point}\n")
+        else:
+            f.write("None\n")
+
+        f.write("\n====================================\n")
+
+    print(f"\n File saved at: {filepath}")
+
+
 if __name__ == "__main__":
-    text = """
-    Patient shows irregular heart rhythm with mild ST elevation.
-    History of hypertension and diabetes.
-    There is a high risk of cardiac complications.
-    Immediate medical attention is recommended.
-    """
 
     summarizer = ReportSummarizer()
+
+    # Load data from Module 1
+    data = load_module1_data()
+
+    # taking patients name from mod1 output
+    patient_name = data.get("Patient Name", "Unknown")
+
+    # Convert to text
+    text = convert_to_text(data)
+
+    # Process
     result = summarizer.process_report(text)
 
-    print("\nFINAL OUTPUT:\n")
     print("\n========== REPORT SUMMARY ==========\n")
 
     print("Summary:")
@@ -91,3 +149,6 @@ if __name__ == "__main__":
         print("None")
 
     print("\n====================================\n")
+
+    # save file
+    save_to_file(result, patient_name)
