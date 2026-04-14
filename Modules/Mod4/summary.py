@@ -28,6 +28,33 @@ def convert_to_text(data):
 
     return text
 
+
+def analyze_severity(data):
+    diagnosis = data.get("Diagnosis", "").lower()
+
+    critical_conditions = [
+        "st elevation",
+        "ventricular tachycardia",
+        "cardiac arrest",
+        "heart failure"
+    ]
+
+    moderate_conditions = [
+        "st depression",
+        "av block",
+        "arrhythmia"
+    ]
+
+    for condition in critical_conditions:
+        if condition in diagnosis:
+            return "CRITICAL"
+
+    for condition in moderate_conditions:
+        if condition in diagnosis:
+            return "MODERATE"
+
+    return "NORMAL"
+
 class ReportSummarizer:
     
     def __init__(self):
@@ -73,15 +100,30 @@ class ReportSummarizer:
 
         return list(set(critical))
 
-    def process_report(self, text):
+    # def process_report(self, text):
+    #     summary = self.generate_summary(text)
+    #     key_findings = self.extract_key_findings(summary)
+    #     critical_points = self.extract_critical_points(text)
+
+    #     return {
+    #         "summary": summary,
+    #         "key_findings": key_findings,
+    #         "critical_points": critical_points
+    #     }
+    
+
+    def process_report(self, text, data):
         summary = self.generate_summary(text)
         key_findings = self.extract_key_findings(summary)
         critical_points = self.extract_critical_points(text)
 
+        severity = analyze_severity(data)
+
         return {
             "summary": summary,
             "key_findings": key_findings,
-            "critical_points": critical_points
+            "critical_points": critical_points,
+            "severity": severity
         }
 
 def save_to_file(result, patient_name):
@@ -103,6 +145,9 @@ def save_to_file(result, patient_name):
         f.write("Key Findings:\n")
         for i, point in enumerate(result["key_findings"], 1):
             f.write(f"{i}. {point}\n")
+
+        f.write("Severity Level:\n")
+        f.write(result["severity"] + "\n\n")
 
         f.write("\nCritical Points:\n")
         if result["critical_points"]:
@@ -130,7 +175,8 @@ if __name__ == "__main__":
     text = convert_to_text(data)
 
     # Process
-    result = summarizer.process_report(text)
+    # result = summarizer.process_report(text)
+    result = summarizer.process_report(text, data)
 
     print("\n========== REPORT SUMMARY ==========\n")
 
@@ -141,12 +187,17 @@ if __name__ == "__main__":
     for i, point in enumerate(result["key_findings"], 1):
         print(f"{i}. {point}")
 
+    print("\nSeverity Level:")
+    print(result["severity"])
+
     print("\nCritical Points:")
     if result["critical_points"]:
         for i, point in enumerate(result["critical_points"], 1):
             print(f"{i}. {point}")
     else:
         print("None")
+
+    
 
     print("\n====================================\n")
 
