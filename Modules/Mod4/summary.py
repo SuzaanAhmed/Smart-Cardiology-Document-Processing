@@ -126,17 +126,54 @@ class ReportSummarizer:
             "severity": severity
         }
 
+# def save_to_file(result, patient_name):
+#     # Clean filename
+#     filename = patient_name.replace(" ", "_") + "_summary.txt"
+
+#     # Save inside outputs folder (create if not exists)
+#     output_dir = "outputs"
+#     os.makedirs(output_dir, exist_ok=True)
+
+#     filepath = os.path.join(output_dir, filename)
+
+#     with open(filepath, "w") as f:
+#         f.write("========== REPORT SUMMARY ==========\n\n")
+
+#         f.write("Summary:\n")
+#         f.write(result["summary"] + "\n\n")
+
+#         f.write("Key Findings:\n")
+#         for i, point in enumerate(result["key_findings"], 1):
+#             f.write(f"{i}. {point}\n")
+
+#         f.write("Severity Level:\n")
+#         f.write(result["severity"] + "\n\n")
+
+#         f.write("\nCritical Points:\n")
+#         if result["critical_points"]:
+#             for i, point in enumerate(result["critical_points"], 1):
+#                 f.write(f"{i}. {point}\n")
+#         else:
+#             f.write("None\n")
+
+#         f.write("\n====================================\n")
+
+#     print(f"\n File saved at: {filepath}")
+
+
 def save_to_file(result, patient_name):
     # Clean filename
-    filename = patient_name.replace(" ", "_") + "_summary.txt"
+    clean_name = patient_name.replace(" ", "_")
 
-    # Save inside outputs folder (create if not exists)
-    output_dir = "outputs"
-    os.makedirs(output_dir, exist_ok=True)
+    # =======================
+    # 1. SAVE TXT (Module 4)
+    # =======================
+    txt_dir = "outputs"
+    os.makedirs(txt_dir, exist_ok=True)
 
-    filepath = os.path.join(output_dir, filename)
+    txt_path = os.path.join(txt_dir, f"{clean_name}_summary.txt")
 
-    with open(filepath, "w") as f:
+    with open(txt_path, "w") as f:
         f.write("========== REPORT SUMMARY ==========\n\n")
 
         f.write("Summary:\n")
@@ -146,10 +183,10 @@ def save_to_file(result, patient_name):
         for i, point in enumerate(result["key_findings"], 1):
             f.write(f"{i}. {point}\n")
 
-        f.write("Severity Level:\n")
+        f.write("\nSeverity Level:\n")
         f.write(result["severity"] + "\n\n")
 
-        f.write("\nCritical Points:\n")
+        f.write("Critical Points:\n")
         if result["critical_points"]:
             for i, point in enumerate(result["critical_points"], 1):
                 f.write(f"{i}. {point}\n")
@@ -158,7 +195,30 @@ def save_to_file(result, patient_name):
 
         f.write("\n====================================\n")
 
-    print(f"\n File saved at: {filepath}")
+    print(f" TXT saved at: {txt_path}")
+
+    # ============================
+    # 2. SAVE JSON (Module 8)
+    # ============================
+    json_dir = os.path.join("..", "Mod8", "offline_storage", "records")
+    os.makedirs(json_dir, exist_ok=True)
+
+    json_path = os.path.join(json_dir, f"{clean_name}_summary.json")
+
+    json_data = {
+        "patient_name": patient_name,
+        "summary": result["summary"],
+        "key_findings": result["key_findings"],
+        "severity": result["severity"],
+        "critical_points": result["critical_points"]
+    }
+
+    with open(json_path, "w") as f:
+        json.dump(json_data, f, indent=4)
+
+    print(f" JSON saved at: {json_path}")
+
+
 
 
 if __name__ == "__main__":
