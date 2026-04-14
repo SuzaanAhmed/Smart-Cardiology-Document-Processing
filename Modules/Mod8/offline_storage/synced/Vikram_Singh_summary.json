@@ -1,0 +1,10 @@
+{
+    "patient_name": "Vikram Singh",
+    "summary": "Heart rate is 85 bpm . PR interval 200, QRS duration 100, QT interval 410",
+    "key_findings": [
+        "Heart rate is 85 bpm",
+        "Pr interval 200, qrs duration 100, qt interval 410"
+    ],
+    "severity": "MODERATE",
+    "critical_points": []
+}
