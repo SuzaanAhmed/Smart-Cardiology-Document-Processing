@@ -3,3 +3,5 @@ This is Ai and document processing module
 
 ## Working Member(s):
 - Prajwal
+
+#To run this model, we need to manually instal Terrasect ocr from online

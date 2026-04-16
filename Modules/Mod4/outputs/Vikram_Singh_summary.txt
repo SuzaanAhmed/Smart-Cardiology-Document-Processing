@@ -1,0 +1,16 @@
+========== REPORT SUMMARY ==========
+
+Summary:
+Heart rate is 85 bpm . PR interval 200, QRS duration 100, QT interval 410
+
+Key Findings:
+1. Heart rate is 85 bpm
+2. Pr interval 200, qrs duration 100, qt interval 410
+
+Severity Level:
+MODERATE
+
+Critical Points:
+None
+
+====================================

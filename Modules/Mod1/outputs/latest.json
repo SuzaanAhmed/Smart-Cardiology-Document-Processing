@@ -1,0 +1,12 @@
+{
+    "Patient Name": "Vikram Singh",
+    "Age": "50",
+    "Gender": "Male",
+    "ECG Date": "01/01/2024",
+    "Heart Rate": "85",
+    "PR Interval": "200",
+    "QRS Duration": "100",
+    "QT Interval": "410",
+    "Diagnosis": "First Degree Av Block, St Depression",
+    "Confidence Score": "1.00"
+}
