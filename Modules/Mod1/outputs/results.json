@@ -238,5 +238,17 @@
         "QT Interval": "410",
         "Diagnosis": "First Degree Av Block, St Depression",
         "Confidence Score": "1.00"
+    },
+    {
+        "Patient Name": "Unknown Patient",
+        "Age": "N/A",
+        "Gender": "N/A",
+        "ECG Date": "N/A",
+        "Heart Rate": "N/A",
+        "PR Interval": "N/A",
+        "QRS Duration": "N/A",
+        "QT Interval": "N/A",
+        "Diagnosis": "N/A",
+        "Confidence Score": "0.22"
     }
 ]
