@@ -1,12 +1,12 @@
 {
-    "Patient Name": "Vikram Singh",
-    "Age": "50",
-    "Gender": "Male",
-    "ECG Date": "01/01/2024",
-    "Heart Rate": "85",
-    "PR Interval": "200",
-    "QRS Duration": "100",
-    "QT Interval": "410",
-    "Diagnosis": "First Degree Av Block, St Depression",
+    "Patient Name": "Laura Stevens",
+    "Age": "32",
+    "Gender": "Female",
+    "ECG Date": "12/01/2024",
+    "Heart Rate": "72",
+    "PR Interval": "150",
+    "QRS Duration": "90",
+    "QT Interval": "360",
+    "Diagnosis": "Normal Sinus Rhythm, Sinus Rhythm, Ischemic, No Acute Ischemic Changes",
     "Confidence Score": "1.00"
 }
