@@ -1,76 +1,158 @@
-# ECG SIGNAL ANALYSIS PROGRAM
-
-import pandas as pd
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
-# input details
+from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.preprocessing import StandardScaler
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv1D, MaxPooling1D, Flatten, Dense, Dropout, BatchNormalization
+from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
+print("Num GPUs Available:", len(tf.config.list_physical_devices('GPU')))
 
-ecg_id = input("Enter ECG ID: ")
-patient_id = input("Enter Patient ID: ")
-file_name = input("Enter ECG CSV file name: ")
-sampling_rate = int(input("Enter Sampling Rate: "))
-duration = float(input("Enter Duration (seconds): "))
-device_id = input("Enter Device ID: ")
-lead_type = input("Enter Lead Type: ")
+train_path = "C:/Users/akash/OneDrive/Desktop/New folder (2)/Smart-Cardiology-Document-Processing/Modules/Mod2/archive (1)/mitbih_train.csv"
+test_path  = "C:/Users/akash/OneDrive/Desktop/New folder (2)/Smart-Cardiology-Document-Processing/Modules/Mod2/archive (1)/mitbih_test.csv"
 
-# read csv file
+train_df = pd.read_csv(train_path, header=None)
+test_df  = pd.read_csv(test_path, header=None)
 
-data = pd.read_csv(r"E:\internship\New folder (3)\ecg.csv")
+# Split features and labels
+X_train = train_df.iloc[:, :-1].values
+y_train = train_df.iloc[:, -1].values
 
-signal = data["ecg"]
+X_test = test_df.iloc[:, :-1].values
+y_test = test_df.iloc[:, -1].values
 
-# calculate heart rate (simple logic)
+# ==============================
+# 4. PREPROCESSING
+# ==============================
 
-beats = len(signal) / sampling_rate
-heart_rate = (beats / duration) * 60
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test  = scaler.transform(X_test)
 
-# check rhythm type
+# Reshape for CNN (samples, timesteps, channels)
+X_train = X_train.reshape(X_train.shape[0], X_train.shape[1], 1)
+X_test  = X_test.reshape(X_test.shape[0], X_test.shape[1], 1)
 
-if heart_rate < 60:
-    rhythm = "Bradycardia"
-elif heart_rate > 100:
-    rhythm = "Tachycardia"
-else:
-    rhythm = "Normal"
+# Convert labels to categorical
+num_classes = len(np.unique(y_train))
+y_train = tf.keras.utils.to_categorical(y_train, num_classes)
+y_test  = tf.keras.utils.to_categorical(y_test, num_classes)
 
-# check ST segment (basic average check)
+# ==============================
+# 5. BUILD CNN MODEL
+# ==============================
 
-avg = np.mean(signal)
+model = Sequential([
+    Conv1D(64, kernel_size=5, activation='relu', input_shape=(X_train.shape[1],1)),
+    BatchNormalization(),
+    MaxPooling1D(pool_size=2),
+    Dropout(0.3),
 
-if avg > 0.5:
-    st_status = "ST Elevation"
-elif avg < -0.5:
-    st_status = "ST Depression"
-else:
-    st_status = "Normal"
+    Conv1D(128, kernel_size=5, activation='relu'),
+    BatchNormalization(),
+    MaxPooling1D(pool_size=2),
+    Dropout(0.3),
 
-# confidence score (random simple value)
+    Conv1D(256, kernel_size=3, activation='relu'),
+    BatchNormalization(),
+    MaxPooling1D(pool_size=2),
+    Dropout(0.3),
 
-confidence = np.random.randint(85, 98)
+    Flatten(),
+    Dense(256, activation='relu'),
+    Dropout(0.5),
 
-# remarks
+    Dense(num_classes, activation='softmax')
+])
 
-if rhythm == "Normal":
-    remarks = "ECG looks normal"
-else:
-    remarks = "Abnormal ECG detected"
+model.compile(
+    optimizer='adam',
+    loss='categorical_crossentropy',
+    metrics=['accuracy']
+)
 
-# display output
+model.summary()
 
-print("\nECG ANALYSIS RESULT")
-print("ECG ID:", ecg_id)
-print("Patient ID:", patient_id)
-print("Heart Rate:", round(heart_rate,2), "BPM")
-print("Rhythm Type:", rhythm)
-print("ST Status:", st_status)
-print("Confidence Score:", confidence, "%")
-print("AI Remarks:", remarks)
+# ==============================
+# 6. CALLBACKS
+# ==============================
 
-# plot ECG signal
+callbacks = [
+    EarlyStopping(patience=5, restore_best_weights=True),
+    ModelCheckpoint("best_model.h5", save_best_only=True)
+]
 
-plt.plot(signal)
-plt.title("ECG Signal")
-plt.xlabel("Samples")
-plt.ylabel("Amplitude")
+# ==============================
+# 7. TRAIN MODEL (BIG BATCH + GPU)
+# ==============================
+
+history = model.fit(
+    X_train, y_train,
+    validation_data=(X_test, y_test),
+    epochs=30,
+    batch_size=64,   # Large batch size
+    callbacks=callbacks,
+    verbose=1
+)
+
+# ==============================
+# 8. EVALUATION
+# ==============================
+
+test_loss, test_acc = model.evaluate(X_test, y_test, verbose=0)
+print("\nTest Accuracy:", test_acc)
+print("Test Loss:", test_loss)
+
+# Predictions
+y_pred = model.predict(X_test)
+y_pred_classes = np.argmax(y_pred, axis=1)
+y_true = np.argmax(y_test, axis=1)
+
+# Classification Report
+print("\nClassification Report:\n")
+print(classification_report(y_true, y_pred_classes))
+
+# ==============================
+# 9. CONFUSION MATRIX
+# ==============================
+
+cm = confusion_matrix(y_true, y_pred_classes)
+
+plt.figure(figsize=(8,6))
+sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+plt.title("Confusion Matrix")
+plt.xlabel("Predicted")
+plt.ylabel("True")
 plt.show()
+
+# ==============================
+# 10. ACCURACY & LOSS CURVES
+# ==============================
+
+plt.figure(figsize=(12,5))
+
+# Accuracy
+plt.subplot(1,2,1)
+plt.plot(history.history['accuracy'], label='Train Accuracy')
+plt.plot(history.history['val_accuracy'], label='Val Accuracy')
+plt.legend()
+plt.title("Accuracy Curve")
+
+# Loss
+plt.subplot(1,2,2)
+plt.plot(history.history['loss'], label='Train Loss')
+plt.plot(history.history['val_loss'], label='Val Loss')
+plt.legend()
+plt.title("Loss Curve")
+
+plt.show()
+
+# ==============================
+# 11. SAVE FINAL MODEL
+# ==============================
+
+model.save("cnn_heartbeat_model.h5")
+print("Model Saved Successfully!")
