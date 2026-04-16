@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cardiac Risk Prediction</title>
+<style>
+body{
+font-family: Arial;
+background:#f4f6f9;
+text-align:center;
+}
+.container{
+background:white;
+padding:30px;
+margin:50px auto;
+width:400px;
+border-radius:10px;
+box-shadow:0 0 10px gray;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2>Cardiac Risk Prediction</h2>
+
+<h3>Patient Details</h3>
+<p>Name: {{ patient.name }}</p>
+<p>Age: {{ patient.age }}</p>
+<p>Gender: {{ patient.gender }}</p>
+
+<h3>Vitals</h3>
+<p>Blood Pressure: {{ vitals.blood_pressure }}</p>
+<p>Cholesterol: {{ vitals.cholesterol }}</p>
+<p>Diabetes: {{ vitals.diabetes }}</p>
+<p>Smoking: {{ vitals.smoking }}</p>
+<p>ECG: {{ vitals.ecg_result }}</p>
+
+<hr>
+
+<h3>Prediction</h3>
+<p><b>Risk Level:</b> {{ prediction }}</p>
+<p><b>Probability:</b> {{ probability }}%</p>
+<p><b>Action:</b> {{ action }}</p>
+
+</div>
+
+</body>
+</html>

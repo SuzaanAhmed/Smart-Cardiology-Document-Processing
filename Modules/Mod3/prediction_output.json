@@ -1,0 +1,19 @@
+{
+    "patient": {
+        "name": "Ravi Kumar",
+        "age": 60,
+        "gender": "Male"
+    },
+    "vitals": {
+        "blood_pressure": 150,
+        "cholesterol": 270,
+        "diabetes": "Yes",
+        "smoking": "Yes",
+        "ecg_result": "Abnormal"
+    },
+    "prediction": {
+        "risk": "HIGH",
+        "probability": 99.0,
+        "action": "Immediate Medical Attention"
+    }
+}
