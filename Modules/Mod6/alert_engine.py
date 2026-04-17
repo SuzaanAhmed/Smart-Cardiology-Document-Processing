@@ -12,7 +12,6 @@ def generate_alert(data):
 
     diagnosis = data.get("Diagnosis", "").lower()
 
-    # RULES
     if hr and hr > 120:
         alerts.append(("High Risk", "Severe Tachycardia"))
 
