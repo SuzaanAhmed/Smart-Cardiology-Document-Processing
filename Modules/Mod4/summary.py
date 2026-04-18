@@ -60,6 +60,8 @@ class ReportSummarizer:
     def __init__(self):
         print("Loading model...")
         # self.summarizer = pipeline("summarization", model="t5-small")
+        # added framework = pt becuase sometimes the code will run on tenserflow/keras framework and give error
+        # adding framework = 'pt' will force the code to run on the pytorch framework
         self.summarizer = pipeline("summarization", model="t5-small", framework="pt")
 
     def generate_summary(self, text):
@@ -77,7 +79,7 @@ class ReportSummarizer:
         )
 
         summary = result[0]['summary_text'].strip()
-        summary = summary[0].upper() + summary[1:]
+        summary = summary[0].upper() + summary[1:]   # just to make the first letter uppercase, can remove if not required
 
         return summary
 
@@ -99,17 +101,6 @@ class ReportSummarizer:
                     critical.append(sentence.strip().capitalize())
 
         return list(set(critical))
-
-    # def process_report(self, text):
-    #     summary = self.generate_summary(text)
-    #     key_findings = self.extract_key_findings(summary)
-    #     critical_points = self.extract_critical_points(text)
-
-    #     return {
-    #         "summary": summary,
-    #         "key_findings": key_findings,
-    #         "critical_points": critical_points
-    #     }
     
 
     def process_report(self, text, data):
@@ -126,48 +117,13 @@ class ReportSummarizer:
             "severity": severity
         }
 
-# def save_to_file(result, patient_name):
-#     # Clean filename
-#     filename = patient_name.replace(" ", "_") + "_summary.txt"
-
-#     # Save inside outputs folder (create if not exists)
-#     output_dir = "outputs"
-#     os.makedirs(output_dir, exist_ok=True)
-
-#     filepath = os.path.join(output_dir, filename)
-
-#     with open(filepath, "w") as f:
-#         f.write("========== REPORT SUMMARY ==========\n\n")
-
-#         f.write("Summary:\n")
-#         f.write(result["summary"] + "\n\n")
-
-#         f.write("Key Findings:\n")
-#         for i, point in enumerate(result["key_findings"], 1):
-#             f.write(f"{i}. {point}\n")
-
-#         f.write("Severity Level:\n")
-#         f.write(result["severity"] + "\n\n")
-
-#         f.write("\nCritical Points:\n")
-#         if result["critical_points"]:
-#             for i, point in enumerate(result["critical_points"], 1):
-#                 f.write(f"{i}. {point}\n")
-#         else:
-#             f.write("None\n")
-
-#         f.write("\n====================================\n")
-
-#     print(f"\n File saved at: {filepath}")
 
 
 def save_to_file(result, patient_name):
-    # Clean filename
+    # Clean filename to remove empty spaces
     clean_name = patient_name.replace(" ", "_")
 
-    # =======================
-    # 1. SAVE TXT (Module 4)
-    # =======================
+    # 1. SAVE TXT inside Mod4 folder
     txt_dir = "outputs"
     os.makedirs(txt_dir, exist_ok=True)
 
@@ -197,9 +153,8 @@ def save_to_file(result, patient_name):
 
     print(f" TXT saved at: {txt_path}")
 
-    # ============================
-    # 2. SAVE JSON (Module 8)
-    # ============================
+    
+    # 2. SAVE JSON inside Mod8 folder because .json files r easy to extract and well structured
     json_dir = os.path.join("..", "Mod8", "offline_storage", "records")
     os.makedirs(json_dir, exist_ok=True)
 
@@ -235,9 +190,10 @@ if __name__ == "__main__":
     text = convert_to_text(data)
 
     # Process
-    # result = summarizer.process_report(text)
     result = summarizer.process_report(text, data)
 
+
+    # to print in terminal, this part can be removed if u dont want to print in terminal and directly save it
     print("\n========== REPORT SUMMARY ==========\n")
 
     print("Summary:")
@@ -256,8 +212,6 @@ if __name__ == "__main__":
             print(f"{i}. {point}")
     else:
         print("None")
-
-    
 
     print("\n====================================\n")
 
