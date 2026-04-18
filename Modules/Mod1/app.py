@@ -2,12 +2,12 @@ from flask import Flask, render_template, request
 import os
 import json
 
-# Module 1
+# mod 1
 from OCR import extract_text_from_image
 from NLP import extract_fields
 from storage import save_all
 
-# Module 6 logic
+# mod 6 logic
 import sys
 import os
 
@@ -23,7 +23,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 LATEST_FILE = "outputs/latest.json"
 
 
-# 🟢 MAIN PAGE (MOD1)
+# main mod1
 @app.route("/", methods=["GET", "POST"])
 def index():
     extracted_data = None
@@ -35,15 +35,19 @@ def index():
             path = os.path.join(UPLOAD_FOLDER, file.filename)
             file.save(path)
 
+            #this calls ocr function
             text = extract_text_from_image(path)
+            
+            #calls nlp
             data = extract_fields(text)
 
+            #calls storage
             extracted_data = save_all(data)
 
     return render_template("index.html", data=extracted_data)
 
 
-# 🔴 ALERT PAGE (MOD6)
+#aler mod6
 @app.route("/alerts")
 def alerts():
     if os.path.exists(LATEST_FILE):

@@ -1,13 +1,11 @@
 import re
 
-
 def clean_text(text):
     text = text.replace("\n", " ")
     text = text.replace("O", "0")
     return text
 
-
-# ---------------- NAME ----------------
+# name
 def extract_name(text):
     match = re.search(r'(Name|Namo|Nam)[:\s]*([A-Za-z ]+)', text, re.IGNORECASE)
 
@@ -23,13 +21,13 @@ def extract_name(text):
     return "Unknown Patient"
 
 
-# ---------------- INTERVALS ----------------
+# interval
 def extract_intervals(text):
     pr = "Not Found"
     qrs = "Not Found"
     qt = "Not Found"
 
-    # Exact matches
+    # exact matche
     pr_match = re.search(r'PR[^0-9]{0,10}(\d{2,4})\s*ms', text, re.IGNORECASE)
     qrs_match = re.search(r'(QRS|ORS)[^0-9]{0,10}(\d{2,4})\s*ms', text, re.IGNORECASE)
     qt_match = re.search(r'QT[^0-9]{0,10}(\d{2,4})\s*ms', text, re.IGNORECASE)
@@ -43,7 +41,6 @@ def extract_intervals(text):
     if qt_match:
         qt = qt_match.group(1)
 
-    # Fallback
     values = list(map(int, re.findall(r'(\d{2,4})\s*ms', text)))
 
     for v in values:
@@ -57,7 +54,7 @@ def extract_intervals(text):
     return pr, qrs, qt
 
 
-# ---------------- DIAGNOSIS (ONE LINE CLEAN) ----------------
+# diagnosus
 def extract_diagnosis(text):
     text = text.lower()
 
@@ -100,7 +97,7 @@ def extract_diagnosis(text):
     return ", ".join(found)
 
 
-# ---------------- MAIN ----------------
+# main
 def extract_fields(text):
     data = {}
     text = clean_text(text)
