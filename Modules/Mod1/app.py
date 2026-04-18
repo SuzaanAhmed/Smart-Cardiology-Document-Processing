@@ -7,7 +7,7 @@ from OCR import extract_text_from_image
 from NLP import extract_fields
 from storage import save_all
 
-# mod] 6 logic
+# mod 6 logic
 import sys
 import os
 
@@ -35,9 +35,13 @@ def index():
             path = os.path.join(UPLOAD_FOLDER, file.filename)
             file.save(path)
 
+            #this calls ocr function
             text = extract_text_from_image(path)
+            
+            #calls nlp
             data = extract_fields(text)
 
+            #calls storage
             extracted_data = save_all(data)
 
     return render_template("index.html", data=extracted_data)

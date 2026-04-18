@@ -1,11 +1,9 @@
 import re
 
-
 def clean_text(text):
     text = text.replace("\n", " ")
     text = text.replace("O", "0")
     return text
-
 
 # name
 def extract_name(text):
