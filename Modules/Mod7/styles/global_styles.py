@@ -1,4 +1,5 @@
 def get_styles():
+    # Global UI styling (like CSS)
     return """
         QWidget {
             background-color: #020617;
