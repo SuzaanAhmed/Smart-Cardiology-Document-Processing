@@ -5,6 +5,7 @@ class DataLoader:
         self.file_path = file_path
 
     def load_all(self):
+        # Load all sheets into DataFrames
         return {
             "patients": pd.read_excel(self.file_path, sheet_name="Patients"),
             "ecg_data": pd.read_excel(self.file_path, sheet_name="ECG_Data"),
