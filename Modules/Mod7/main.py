@@ -1,12 +1,19 @@
 import sys
 from PyQt5.QtWidgets import QApplication
+from dashboard_ui import DashboardWindow
+from data_handler import DataHandler
 
-# Import main window UI
-from ui.main_window import DashboardWindow
 
-# Entry point of application
+class AppController:
+    def __init__(self):
+        self.app = QApplication(sys.argv)
+        self.data_handler = DataHandler()
+        self.window = DashboardWindow(self.data_handler)
+
+    def run(self):
+        self.window.show()
+        sys.exit(self.app.exec_())
+
+
 if __name__ == "__main__":
-    app = QApplication(sys.argv)   # Create app
-    window = DashboardWindow()    # Create main window
-    window.show()                 # Show UI
-    sys.exit(app.exec_())         # Run app loop
+    AppController().run()
