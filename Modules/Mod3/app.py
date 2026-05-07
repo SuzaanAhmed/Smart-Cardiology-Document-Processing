@@ -1,101 +1,120 @@
-from flask import Flask, render_template
-import pandas as pd
 import numpy as np
 import json
 from sklearn.ensemble import RandomForestClassifier
 
-app = Flask(__name__)
-
 # -------------------------------
-# TRAINING DATA
+# CREATE MODEL
 # -------------------------------
-data = {
-    "Age":[45,50,36,60,55,48,39,65,52,47],
-    "Gender":[1,1,0,1,0,1,0,1,1,0],
-    "BP":[130,140,120,150,135,128,118,160,142,125],
-    "Diabetes":[1,0,0,1,1,0,0,1,1,0],
-    "Smoking":[1,1,0,1,0,1,0,1,1,0],
-    "ECG":[1,0,0,1,1,0,0,1,1,0],
-    "Cholesterol":[230,250,180,270,240,210,190,290,260,200],
-    "Risk":[1,1,0,1,1,0,0,1,1,0]
-}
-
-df = pd.DataFrame(data)
-X = df.drop("Risk", axis=1)
-y = df["Risk"]
-
 model = RandomForestClassifier()
-model.fit(X, y)
+
+# Dummy training data
+X_dummy = np.array([
+    [45, 1, 130, 1, 1, 1, 230],
+    [36, 0, 120, 0, 0, 0, 180]
+])
+
+y_dummy = np.array([1, 0])
+
+# Train model
+model.fit(X_dummy, y_dummy)
 
 # -------------------------------
-# HOME ROUTE
+# READ MODULE 1 OUTPUT JSON
 # -------------------------------
-@app.route('/')
-def home():
+with open(
+    r"C:\Users\harik\OneDrive\Desktop\cardiac-prediction\Smart-Cardiology-Document-Processing\Modules\Mod1\outputs\results.json"
+) as f:
 
-    # read hospital-style JSON
-    with open("patient_report.json") as f:
-        data = json.load(f)
+    patients = json.load(f)
 
-#with open("../Mod1/outputs/patient_report.json") as f:
-#    data = json.load(f)
+# -------------------------------
+# STORE ALL OUTPUTS
+# -------------------------------
+all_outputs = []
 
+# -------------------------------
+# LOOP THROUGH ALL PATIENTS
+# -------------------------------
+for data in patients:
 
-    patient = data.get("patient", {})
-    vitals = data.get("vitals", {})
+    # -------------------------------
+    # SAFE AGE CONVERSION
+    # -------------------------------
+    try:
+        age = int(data.get("Age", 0))
+    except:
+        age = 0
 
-    # extract values
-    age = patient.get("age", 0)
-    gender = 1 if patient.get("gender", "").lower() == "male" else 0
+    # -------------------------------
+    # GENDER CONVERSION
+    # -------------------------------
+    gender = 1 if str(data.get("Gender", "")).lower() == "male" else 0
 
-    bp = vitals.get("blood_pressure", 0)
-    chol = vitals.get("cholesterol", 0)
+    # -------------------------------
+    # DIAGNOSIS EXTRACTION
+    # -------------------------------
+    diagnosis = str(data.get("Diagnosis", "")).lower()
 
-    diabetes = 1 if vitals.get("diabetes", "").lower() == "yes" else 0
-    smoking = 1 if vitals.get("smoking", "").lower() == "yes" else 0
-    ecg = 1 if vitals.get("ecg_result", "").lower() == "abnormal" else 0
+    # ECG mapping
+    ecg = 1 if "ischemic" in diagnosis or "abnormal" in diagnosis else 0
 
-    input_data = np.array([[age, gender, bp, diabetes, smoking, ecg, chol]])
+    # -------------------------------
+    # DEFAULT VALUES
+    # -------------------------------
+    bp = 120
+    chol = 200
+    diabetes = 0
+    smoking = 0
 
-    # prediction
+    # -------------------------------
+    # MODEL INPUT
+    # -------------------------------
+    input_data = np.array([
+        [age, gender, bp, diabetes, smoking, ecg, chol]
+    ])
+
+    # -------------------------------
+    # PREDICTION
+    # -------------------------------
     prob = model.predict_proba(input_data)[0][1]
 
     if prob < 0.33:
         risk = "LOW"
         action = "Regular Checkup"
+
     elif prob < 0.66:
         risk = "MEDIUM"
         action = "Consult Cardiologist"
+
     else:
         risk = "HIGH"
         action = "Immediate Medical Attention"
 
     # -------------------------------
-    # SAVE OUTPUT
+    # OUTPUT FOR ONE PATIENT
     # -------------------------------
+    # output for one patient
     output_data = {
-        "patient": patient,
-        "vitals": vitals,
-        "prediction": {
-            "risk": risk,
-            "probability": round(prob*100,2),
-            "action": action
-        }
+        "Patient ID": data.get("Patient ID"),
+        "Patient Name": data.get("Patient Name"),
+        "Age": age,
+        "Gender": data.get("Gender"),
+        "Diagnosis": data.get("Diagnosis"),
+        "Risk Level": risk,
+        "Probability": round(prob * 100, 2),
+        "Suggested Action": action
     }
 
-    with open("prediction_output.json", "w") as f:
-        json.dump(output_data, f, indent=4)
-
-    # -------------------------------
-    return render_template(
-        "index.html",
-        patient=patient,
-        vitals=vitals,
-        prediction=risk,
-        probability=round(prob*100,2),
-        action=action
-    )
+    # add output to list
+    all_outputs.append(output_data)
+# -------------------------------
+# SAVE ALL OUTPUTS
+# -------------------------------
+with open(r"C:\Users\harik\OneDrive\Desktop\cardiac-prediction\Smart-Cardiology-Document-Processing\Modules\Mod3\outputs\prediction_output.json","w") as f:
+    json.dump(all_outputs, f, indent=4)
 
 # -------------------------------
-if __name__ == "__main__":
-    app.run(debug=True)
+# PRINT SUCCESS MESSAGE
+# -------------------------------
+print("Prediction completed successfully!")
+print("Output saved in prediction_output.json")
