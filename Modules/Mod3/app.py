@@ -7,81 +7,113 @@ from sklearn.ensemble import RandomForestClassifier
 # -------------------------------
 model = RandomForestClassifier()
 
-# Dummy fit (required to use predict)
+# Dummy training data
 X_dummy = np.array([
-    [45,1,130,1,1,1,230],
-    [36,0,120,0,0,0,180]
+    [45, 1, 130, 1, 1, 1, 230],
+    [36, 0, 120, 0, 0, 0, 180]
 ])
 
-y_dummy = np.array([1,0])
+y_dummy = np.array([1, 0])
 
+# Train model
 model.fit(X_dummy, y_dummy)
 
 # -------------------------------
-# READ INPUT JSON
+# READ MODULE 1 OUTPUT JSON
 # -------------------------------
-with open(r"C:\Users\harik\OneDrive\Desktop\Project\patient_report.json") as f:
-#with open("patient_report.json") as f:
-    data = json.load(f)
+with open(
+    r"C:\Users\harik\OneDrive\Desktop\cardiac-prediction\Smart-Cardiology-Document-Processing\Modules\Mod1\outputs\results.json"
+) as f:
 
-# -------------------------------
-# EXTRACT ECG DATA
-# -------------------------------
-age = int(data.get("Age", 0))
-
-gender = 1 if data.get("Gender", "").lower() == "male" else 0
-
-diagnosis = data.get("Diagnosis", "").lower()
-
-# ECG mapping
-ecg = 1 if "ischemic" in diagnosis or "abnormal" in diagnosis else 0
-
-# Default values
-bp = 120
-chol = 200
-diabetes = 0
-smoking = 0
+    patients = json.load(f)
 
 # -------------------------------
-# MODEL INPUT
+# STORE ALL OUTPUTS
 # -------------------------------
-input_data = np.array([[age, gender, bp, diabetes, smoking, ecg, chol]])
-
-# -------------------------------
-# PREDICTION
-# -------------------------------
-prob = model.predict_proba(input_data)[0][1]
-
-if prob < 0.33:
-    risk = "LOW"
-    action = "Regular Checkup"
-
-elif prob < 0.66:
-    risk = "MEDIUM"
-    action = "Consult Cardiologist"
-
-else:
-    risk = "HIGH"
-    action = "Immediate Medical Attention"
+all_outputs = []
 
 # -------------------------------
-# SAVE OUTPUT JSON
+# LOOP THROUGH ALL PATIENTS
 # -------------------------------
-output_data = {
-    "Patient Name": data.get("Patient Name"),
-    "Age": age,
-    "Gender": data.get("Gender"),
-    "Diagnosis": data.get("Diagnosis"),
-    "Risk Level": risk,
-    "Probability": round(prob * 100, 2),
-    "Suggested Action": action
-}
+for data in patients:
 
-with open("prediction_output.json", "w") as f:
-    json.dump(output_data, f, indent=4)
+    # -------------------------------
+    # SAFE AGE CONVERSION
+    # -------------------------------
+    try:
+        age = int(data.get("Age", 0))
+    except:
+        age = 0
+
+    # -------------------------------
+    # GENDER CONVERSION
+    # -------------------------------
+    gender = 1 if str(data.get("Gender", "")).lower() == "male" else 0
+
+    # -------------------------------
+    # DIAGNOSIS EXTRACTION
+    # -------------------------------
+    diagnosis = str(data.get("Diagnosis", "")).lower()
+
+    # ECG mapping
+    ecg = 1 if "ischemic" in diagnosis or "abnormal" in diagnosis else 0
+
+    # -------------------------------
+    # DEFAULT VALUES
+    # -------------------------------
+    bp = 120
+    chol = 200
+    diabetes = 0
+    smoking = 0
+
+    # -------------------------------
+    # MODEL INPUT
+    # -------------------------------
+    input_data = np.array([
+        [age, gender, bp, diabetes, smoking, ecg, chol]
+    ])
+
+    # -------------------------------
+    # PREDICTION
+    # -------------------------------
+    prob = model.predict_proba(input_data)[0][1]
+
+    if prob < 0.33:
+        risk = "LOW"
+        action = "Regular Checkup"
+
+    elif prob < 0.66:
+        risk = "MEDIUM"
+        action = "Consult Cardiologist"
+
+    else:
+        risk = "HIGH"
+        action = "Immediate Medical Attention"
+
+    # -------------------------------
+    # OUTPUT FOR ONE PATIENT
+    # -------------------------------
+    output_data = {
+        "Patient Name": data.get("Patient Name"),
+        "Age": age,
+        "Gender": data.get("Gender"),
+        "Diagnosis": data.get("Diagnosis"),
+        "Risk Level": risk,
+        "Probability": round(prob * 100, 2),
+        "Suggested Action": action
+    }
+
+    # Add to output list
+    all_outputs.append(output_data)
 
 # -------------------------------
-# PRINT MESSAGE
+# SAVE ALL OUTPUTS
+# -------------------------------
+with open(r"C:\Users\harik\OneDrive\Desktop\cardiac-prediction\Smart-Cardiology-Document-Processing\Modules\Mod3\outputs\prediction_output.json","w") as f:
+    json.dump(all_outputs, f, indent=4)
+
+# -------------------------------
+# PRINT SUCCESS MESSAGE
 # -------------------------------
 print("Prediction completed successfully!")
 print("Output saved in prediction_output.json")
