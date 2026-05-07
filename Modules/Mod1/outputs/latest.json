@@ -1,4 +1,5 @@
 {
+    "Patient ID": "P010",
     "Patient Name": "Laura Stevens",
     "Age": "32",
     "Gender": "Female",
@@ -7,6 +8,6 @@
     "PR Interval": "150",
     "QRS Duration": "90",
     "QT Interval": "360",
-    "Diagnosis": "No Acute Ischemic Changes, Sinus Rhythm, Ischemic, Normal Sinus Rhythm",
+    "Diagnosis": "Sinus Rhythm, Ischemic, No Acute Ischemic Changes, Normal Sinus Rhythm",
     "Confidence Score": "1.00"
 }
