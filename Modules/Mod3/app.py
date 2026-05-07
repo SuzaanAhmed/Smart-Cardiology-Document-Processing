@@ -93,7 +93,9 @@ for data in patients:
     # -------------------------------
     # OUTPUT FOR ONE PATIENT
     # -------------------------------
+    # output for one patient
     output_data = {
+        "Patient ID": data.get("Patient ID"),
         "Patient Name": data.get("Patient Name"),
         "Age": age,
         "Gender": data.get("Gender"),
@@ -103,9 +105,8 @@ for data in patients:
         "Suggested Action": action
     }
 
-    # Add to output list
+    # add output to list
     all_outputs.append(output_data)
-
 # -------------------------------
 # SAVE ALL OUTPUTS
 # -------------------------------
