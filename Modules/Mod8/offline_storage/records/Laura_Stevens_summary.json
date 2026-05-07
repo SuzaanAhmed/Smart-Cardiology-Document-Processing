@@ -1,0 +1,10 @@
+{
+    "patient_name": "Laura Stevens",
+    "summary": "ECG taken on 12/01/2024 . heart rate is 72 bpm. PR interval 150, QRS duration 90,",
+    "key_findings": [
+        "Ecg taken on 12/01/2024",
+        "Heart rate is 72 bpm"
+    ],
+    "severity": "NORMAL",
+    "critical_points": []
+}

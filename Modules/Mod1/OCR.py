@@ -1,13 +1,10 @@
 import easyocr
 import cv2
 
-# Initialize EasyOCR
 reader = easyocr.Reader(['en'], gpu=False)
-
 
 def extract_text_from_image(image_path):
     img = cv2.imread(image_path)
-
     # Resize
     img = cv2.resize(img, None, fx=1.5, fy=1.5)
 
@@ -22,7 +19,7 @@ def extract_text_from_image(image_path):
     # Focus on top area
     crop = img[0:int(h * 0.40), :]
 
-    # Grayscale
+    # grayscale
     gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
 
     # Slight blur

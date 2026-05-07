@@ -1,0 +1,16 @@
+========== REPORT SUMMARY ==========
+
+Summary:
+ECG taken on 12/01/2024 . heart rate is 72 bpm. PR interval 150, QRS duration 90,
+
+Key Findings:
+1. Ecg taken on 12/01/2024
+2. Heart rate is 72 bpm
+
+Severity Level:
+NORMAL
+
+Critical Points:
+None
+
+====================================
