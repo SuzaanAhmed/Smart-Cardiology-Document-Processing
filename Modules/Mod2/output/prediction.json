@@ -1,0 +1,8 @@
+{
+    "Heart Rate (BPM)": 79,
+    "Rhythm Type": "Irregular Rhythm",
+    "Abnormality Detected": "st_depression",
+    "ST Elevation / Depression": "ST Depression",
+    "Confidence Score": 0.38,
+    "AI Remarks": "Possible myocardial ischemia detected"
+}
