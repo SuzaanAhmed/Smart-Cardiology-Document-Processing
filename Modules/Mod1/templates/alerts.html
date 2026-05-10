@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ECG Alert System</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f7fb;
+            padding: 20px;
+        }
+
+        .container {
+            width: 60%;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        h1 {
+            text-align: center;
+            color: red;
+        }
+
+        .alert {
+            background: #ffe6e6;
+            border-left: 6px solid red;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .normal {
+            background: #e6ffe6;
+            border-left: 6px solid green;
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🚨 ECG Alert System</h1>
+
+    {% if patient %}
+        <h3>{{ patient["Patient Name"] }}</h3>
+
+        <p>Heart Rate: {{ patient["Heart Rate"] }}</p>
+        <p>PR Interval: {{ patient["PR Interval"] }}</p>
+        <p>QRS Duration: {{ patient["QRS Duration"] }}</p>
+        <p>QT Interval: {{ patient["QT Interval"] }}</p>
+
+        <hr>
+
+        {% if alerts %}
+            {% for alert in alerts %}
+                <div class="alert">
+                    <b>{{ alert["Alert Type"] }}</b><br>
+                    {{ alert["Message"] }}
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="normal">
+                ✅ No issues detected
+            </div>
+        {% endif %}
+    {% else %}
+        <p>No patient data found</p>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
