@@ -5,3 +5,8 @@ scikit-learn==1.8.0
 pandas==3.0.1
 joblib==1.5.3
 numpy
+pytesseract
+opencv-python
+pillow
+numpy
+Flask
