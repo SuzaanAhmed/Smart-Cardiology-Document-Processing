@@ -1,8 +1,6 @@
 # the code right now does not take input from the other modules, but rather takes it from within the code
 # typed in the "text"
-
 # once the previous modules are done, lemme know
-
 
 from transformers import pipeline
 import re
