@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>Smart Cardiology</title>
@@ -10,6 +10,64 @@
     <h1>Smart Cardiology Document Processing</h1>
 
     <button>Analyse</button>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Cardiology System</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>Smart Cardiology Document Processing</h1>
+
+        <!-- Upload Section -->
+        <div class="card">
+
+            <h2>Select ECG File</h2>
+
+            <input type="file" id="fileInput">
+
+            <button onclick="uploadFile()">
+                Analyse
+            </button>
+
+        </div>
+
+        <!-- Status -->
+        <div class="card">
+
+            <h2>Status</h2>
+
+            <p id="statusText">
+                Waiting for file...
+            </p>
+
+        </div>
+
+        <!-- Summary -->
+        <div class="card">
+
+            <h2>Summary</h2>
+
+            <pre id="summaryBox">
+No summary yet.
+            </pre>
+
+        </div>
+
+    </div>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 
