@@ -4,3 +4,5 @@ Modules/Mod5/cardio_decision_model.pkl
 Modules/Mod5/label_encoder.pkl
 project_tree.txt
 Modules/Mod5/Mod5_Diagram.pdf
+__pycache__/
+*.pyc
