@@ -1,0 +1,14 @@
+[
+    {
+        "Alert ID": "4720480f",
+        "Patient ID": "P010",
+        "Alert Type": "Warning",
+        "Severity Score": 3,
+        "Detected Issues": [
+            "Ischemic Changes"
+        ],
+        "Recommendation": "Patient monitoring advised",
+        "Timestamp": "2026-05-16 20:21:39",
+        "Status": "Active"
+    }
+]
