@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import json
 from sklearn.ensemble import RandomForestClassifier
@@ -21,10 +22,17 @@ model.fit(X_dummy, y_dummy)
 # -------------------------------
 # READ MODULE 1 OUTPUT JSON
 # -------------------------------
-with open(
-    r"C:\Users\harik\OneDrive\Desktop\cardiac-prediction\Smart-Cardiology-Document-Processing\Modules\Mod1\outputs\results.json"
-) as f:
+base_dir = os.path.dirname(__file__)
 
+input_path = os.path.join(
+    base_dir,
+    "..",
+    "Mod1",
+    "outputs",
+    "results.json"
+)
+
+with open(input_path) as f:
     patients = json.load(f)
 
 # -------------------------------
@@ -107,14 +115,15 @@ for data in patients:
 
     # add output to list
     all_outputs.append(output_data)
+
 # -------------------------------
 # SAVE ALL OUTPUTS
 # -------------------------------
-with open(r"C:\Users\harik\OneDrive\Desktop\cardiac-prediction\Smart-Cardiology-Document-Processing\Modules\Mod3\outputs\prediction_output.json","w") as f:
-    json.dump(all_outputs, f, indent=4)
+output_path = os.path.join(
+    base_dir,
+    "outputs",
+    "prediction_output.json"
+)
 
-# -------------------------------
-# PRINT SUCCESS MESSAGE
-# -------------------------------
-print("Prediction completed successfully!")
-print("Output saved in prediction_output.json")
+with open(output_path, "w") as f:
+    json.dump(all_outputs, f, indent=4)

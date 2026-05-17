@@ -6,7 +6,7 @@
         "Gender": "N/A",
         "Diagnosis": "Sinus Rhythm, St T Abnormalities, Normal Sinus Rhythm",
         "Risk Level": "MEDIUM",
-        "Probability": 35.0,
+        "Probability": 40.0,
         "Suggested Action": "Consult Cardiologist"
     },
     {
@@ -15,9 +15,9 @@
         "Age": 49,
         "Gender": "Female",
         "Diagnosis": "Sinus Tachycardia",
-        "Risk Level": "LOW",
-        "Probability": 31.0,
-        "Suggested Action": "Regular Checkup"
+        "Risk Level": "MEDIUM",
+        "Probability": 36.0,
+        "Suggested Action": "Consult Cardiologist"
     },
     {
         "Patient ID": "P003",
@@ -26,7 +26,7 @@
         "Gender": "Male",
         "Diagnosis": "Sinus Rhythm, Left Axis Deviation, Infarction, Normal Sinus Rhythm",
         "Risk Level": "MEDIUM",
-        "Probability": 39.0,
+        "Probability": 43.0,
         "Suggested Action": "Consult Cardiologist"
     },
     {
@@ -36,7 +36,7 @@
         "Gender": "Male",
         "Diagnosis": "Ischemic, Sinus Rhythm, Infarction, Normal Sinus Rhythm, St T Changes",
         "Risk Level": "MEDIUM",
-        "Probability": 43.0,
+        "Probability": 47.0,
         "Suggested Action": "Consult Cardiologist"
     },
     {
@@ -45,9 +45,9 @@
         "Age": 41,
         "Gender": "Female",
         "Diagnosis": "Sinus Bradycardia",
-        "Risk Level": "LOW",
-        "Probability": 31.0,
-        "Suggested Action": "Regular Checkup"
+        "Risk Level": "MEDIUM",
+        "Probability": 36.0,
+        "Suggested Action": "Consult Cardiologist"
     },
     {
         "Patient ID": "P006",
@@ -56,7 +56,7 @@
         "Gender": "Male",
         "Diagnosis": "First Degree Av Block, St Depression",
         "Risk Level": "MEDIUM",
-        "Probability": 39.0,
+        "Probability": 43.0,
         "Suggested Action": "Consult Cardiologist"
     },
     {
@@ -66,7 +66,7 @@
         "Gender": "Male",
         "Diagnosis": "Sinus Rhythm, Normal Sinus Rhythm",
         "Risk Level": "MEDIUM",
-        "Probability": 39.0,
+        "Probability": 43.0,
         "Suggested Action": "Consult Cardiologist"
     },
     {
@@ -75,9 +75,9 @@
         "Age": 35,
         "Gender": "Female",
         "Diagnosis": "Sinus Tachycardia",
-        "Risk Level": "LOW",
-        "Probability": 21.0,
-        "Suggested Action": "Regular Checkup"
+        "Risk Level": "MEDIUM",
+        "Probability": 33.0,
+        "Suggested Action": "Consult Cardiologist"
     },
     {
         "Patient ID": "P009",
@@ -86,7 +86,7 @@
         "Gender": "Male",
         "Diagnosis": "Ventricular Hypertrophy, First Degree Av Block, Sinus Rhythm",
         "Risk Level": "MEDIUM",
-        "Probability": 39.0,
+        "Probability": 43.0,
         "Suggested Action": "Consult Cardiologist"
     },
     {
@@ -95,9 +95,9 @@
         "Age": 32,
         "Gender": "Female",
         "Diagnosis": "Sinus Rhythm, Ischemic, No Acute Ischemic Changes, Normal Sinus Rhythm",
-        "Risk Level": "LOW",
-        "Probability": 25.0,
-        "Suggested Action": "Regular Checkup"
+        "Risk Level": "MEDIUM",
+        "Probability": 37.0,
+        "Suggested Action": "Consult Cardiologist"
     },
     {
         "Patient ID": "P011",
@@ -106,7 +106,7 @@
         "Gender": "Male",
         "Diagnosis": "St Depression, Pr Prolong, Sinus Rhythm",
         "Risk Level": "MEDIUM",
-        "Probability": 39.0,
+        "Probability": 43.0,
         "Suggested Action": "Consult Cardiologist"
     },
     {
@@ -116,7 +116,7 @@
         "Gender": "Female",
         "Diagnosis": "Sinus Rhythm, No Abnormalities, Normal Sinus Rhythm",
         "Risk Level": "MEDIUM",
-        "Probability": 35.0,
+        "Probability": 40.0,
         "Suggested Action": "Consult Cardiologist"
     },
     {
@@ -126,7 +126,7 @@
         "Gender": "Male",
         "Diagnosis": "Ischemic, Sinus Tachycardia",
         "Risk Level": "MEDIUM",
-        "Probability": 43.0,
+        "Probability": 47.0,
         "Suggested Action": "Consult Cardiologist"
     },
     {
@@ -136,7 +136,7 @@
         "Gender": "Male",
         "Diagnosis": "Sinus Rhythm, No Abnormalities, Normal Sinus Rhythm",
         "Risk Level": "MEDIUM",
-        "Probability": 33.0,
+        "Probability": 44.0,
         "Suggested Action": "Consult Cardiologist"
     },
     {
@@ -145,9 +145,9 @@
         "Age": 34,
         "Gender": "Female",
         "Diagnosis": "Sinus Rhythm",
-        "Risk Level": "LOW",
-        "Probability": 21.0,
-        "Suggested Action": "Regular Checkup"
+        "Risk Level": "MEDIUM",
+        "Probability": 33.0,
+        "Suggested Action": "Consult Cardiologist"
     },
     {
         "Patient ID": "P016",
@@ -156,7 +156,7 @@
         "Gender": "Male",
         "Diagnosis": "Sinus Tachycardia, Qt Prolong",
         "Risk Level": "MEDIUM",
-        "Probability": 39.0,
+        "Probability": 43.0,
         "Suggested Action": "Consult Cardiologist"
     },
     {
@@ -165,9 +165,9 @@
         "Age": 29,
         "Gender": "Female",
         "Diagnosis": "Sinus Rhythm, Normal Sinus Rhythm",
-        "Risk Level": "LOW",
-        "Probability": 21.0,
-        "Suggested Action": "Regular Checkup"
+        "Risk Level": "MEDIUM",
+        "Probability": 33.0,
+        "Suggested Action": "Consult Cardiologist"
     },
     {
         "Patient ID": "P018",
@@ -176,7 +176,7 @@
         "Gender": "Male",
         "Diagnosis": "Ischemic, Sinus Tachycardia",
         "Risk Level": "MEDIUM",
-        "Probability": 43.0,
+        "Probability": 47.0,
         "Suggested Action": "Consult Cardiologist"
     },
     {
@@ -185,9 +185,9 @@
         "Age": 42,
         "Gender": "Female",
         "Diagnosis": "Sinus Rhythm",
-        "Risk Level": "LOW",
-        "Probability": 31.0,
-        "Suggested Action": "Regular Checkup"
+        "Risk Level": "MEDIUM",
+        "Probability": 36.0,
+        "Suggested Action": "Consult Cardiologist"
     },
     {
         "Patient ID": "P020",
@@ -196,7 +196,7 @@
         "Gender": "Male",
         "Diagnosis": "First Degree Av Block, St Depression",
         "Risk Level": "MEDIUM",
-        "Probability": 39.0,
+        "Probability": 43.0,
         "Suggested Action": "Consult Cardiologist"
     }
 ]
