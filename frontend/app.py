@@ -85,7 +85,7 @@ def upload_file():
             "..",
             "Modules",
             "Mod3",
-            "main.py"
+            "app.py"
         )
 
         subprocess.run(
