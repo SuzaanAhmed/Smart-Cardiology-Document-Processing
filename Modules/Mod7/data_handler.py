@@ -1,62 +1,172 @@
-import random
-import datetime
+import pandas as pd
+import os
 
 
 class DataHandler:
+
     def __init__(self):
-        self.patients = self.generate_mock_data()
 
-    def generate_mock_data(self):
-        hospitals = ["City Hospital", "Apollo", "Metro Care", "AIIMS"]
-        data = []
+        self.file_path = "data/patients.csv"
 
-        for i in range(200):
-            risk = random.choice(["Low", "Medium", "High"])
-            data.append({
-                "id": f"P{i+1}",
-                "hospital": random.choice(hospitals),
-                "risk": risk,
-                "ecg": random.choice(["Normal", "Arrhythmia", "MI"]),
-                "score": round(random.uniform(0.2, 0.95), 2),
-                "date": datetime.date.today()
+        if not os.path.exists(self.file_path):
+
+            raise FileNotFoundError(
+                f"CSV file not found: {self.file_path}"
+            )
+
+        self.df = pd.read_csv(self.file_path)
+
+        # CLEAN COLUMN NAMES
+        self.df.columns = [
+            col.strip()
+            for col in self.df.columns
+        ]
+
+        # ADD RISK COLUMN
+        self.df["Risk"] = self.df.apply(
+            self.calculate_risk,
+            axis=1
+        )
+
+    # ---------------- RISK CALCULATION ---------------- #
+    def calculate_risk(self, row):
+
+        diagnosis = str(
+            row["Diagnosis"]
+        ).lower()
+
+        heart_rate = row["Heart Rate"]
+
+        high_keywords = [
+            "ischemic",
+            "infarction",
+            "hypertrophy",
+            "st depression",
+            "qt prolong",
+            "av block"
+        ]
+
+        # HIGH RISK
+        if any(
+            keyword in diagnosis
+            for keyword in high_keywords
+        ):
+            return "High"
+
+        # MEDIUM RISK
+        if (
+            heart_rate > 100
+            or "tachycardia" in diagnosis
+            or "bradycardia" in diagnosis
+        ):
+            return "Medium"
+
+        # LOW RISK
+        return "Low"
+
+    # ---------------- GET PATIENTS ---------------- #
+    def get_patients(self):
+
+        patients = []
+
+        for _, row in self.df.iterrows():
+
+            patients.append({
+
+                "id":
+                    row["Patient ID"],
+
+                "name":
+                    row["Patient Name"],
+
+                "age":
+                    row["Age"],
+
+                "gender":
+                    row["Gender"],
+
+                "date":
+                    row["ECG Date"],
+
+                "heart_rate":
+                    row["Heart Rate"],
+
+                "pr_interval":
+                    row["PR Interval"],
+
+                "qrs_duration":
+                    row["QRS Duration"],
+
+                "qt_interval":
+                    row["QT Interval"],
+
+                "ecg":
+                    row["Diagnosis"],
+
+                "risk":
+                    row["Risk"],
+
+                "score":
+                    row["Confidence Score"]
             })
-        return data
 
+        return patients
+
+    # ---------------- KPIS ---------------- #
     def get_kpis(self):
-        total = len(self.patients)
-        high_risk = len([p for p in self.patients if p["risk"] == "High"])
+
+        total = len(self.df)
+
+        high = len(
+            self.df[
+                self.df["Risk"] == "High"
+            ]
+        )
+
+        alerts = high
 
         return {
+
             "total": total,
-            "high_risk": int((high_risk / total) * 100),
-            "alerts": high_risk,
-            "accuracy": round(random.uniform(85, 98), 2)
+
+            "high_risk":
+                int((high / total) * 100)
+                if total else 0,
+
+            "alerts": alerts,
+
+            "accuracy": 96.2
         }
 
+    # ---------------- BAR CHART ---------------- #
     def get_hospital_stats(self):
-        stats = {}
-        for p in self.patients:
-            stats[p["hospital"]] = stats.get(p["hospital"], 0) + 1
-        return stats
 
+        return self.df[
+            "Diagnosis"
+        ].value_counts().head(6).to_dict()
+
+    # ---------------- PIE CHART ---------------- #
     def get_risk_distribution(self):
-        dist = {"Low": 0, "Medium": 0, "High": 0}
-        for p in self.patients:
-            dist[p["risk"]] += 1
-        return dist
 
+        return self.df[
+            "Risk"
+        ].value_counts().to_dict()
+
+    # ---------------- HEART RATE TREND ---------------- #
     def get_time_series(self):
-        return [random.randint(5, 20) for _ in range(10)]
 
-    def get_patients(self):
-        return self.patients
+        df = self.df.copy()
 
-    def simulate_realtime_update(self):
-        self.patients.append({
-            "id": f"P{len(self.patients)+1}",
-            "hospital": "City Hospital",
-            "risk": random.choice(["Low", "Medium", "High"]),
-            "ecg": "Arrhythmia",
-            "score": round(random.uniform(0.5, 0.99), 2),
-            "date": datetime.date.today()
-        })
+        # CONVERT DATE
+        df["ECG Date"] = pd.to_datetime(
+            df["ECG Date"],
+            errors="coerce"
+        )
+
+        # SORT
+        df = df.sort_values(
+            by="ECG Date"
+        )
+
+        # HEART RATE TREND
+        return df["Heart Rate"].tolist()
