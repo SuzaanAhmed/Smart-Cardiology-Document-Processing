@@ -1,0 +1,42 @@
+========== REPORT SUMMARY ==========
+
+Summary:
+
+Clinical ECG Summary:
+
+    Patient Willy McKee,
+    age 61,
+    Male.
+
+    ECG taken on
+    2/17/2011.
+
+    Heart rate is
+    80 bpm.
+
+    PR interval
+    186,
+
+    QRS duration
+    102,
+
+    QT interval
+    360.
+
+    Diagnosis:
+    Normal Sinus Rhythm, St T Changes, Sinus Rhythm, Ischemic, Infarction.
+
+Key Findings:
+1. Clinical ecg summary:
+
+    patient willy mckee,
+    age 61,
+    male
+2. Ecg taken on
+    2/17/2011
+
+Severity Level:
+NORMAL
+
+Critical Points:
+None

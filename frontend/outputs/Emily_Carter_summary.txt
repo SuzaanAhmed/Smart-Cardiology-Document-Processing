@@ -1,0 +1,42 @@
+========== REPORT SUMMARY ==========
+
+Summary:
+
+Clinical ECG Summary:
+
+    Patient Emily Carter,
+    age 44,
+    Female.
+
+    ECG taken on
+    03/03/2025.
+
+    Heart rate is
+    68 bpm.
+
+    PR interval
+    160,
+
+    QRS duration
+    94,
+
+    QT interval
+    372.
+
+    Diagnosis:
+    Normal Sinus Rhythm, No Abnormalities, Sinus Rhythm.
+
+Key Findings:
+1. Clinical ecg summary:
+
+    patient emily carter,
+    age 44,
+    female
+2. Ecg taken on
+    03/03/2025
+
+Severity Level:
+NORMAL
+
+Critical Points:
+None

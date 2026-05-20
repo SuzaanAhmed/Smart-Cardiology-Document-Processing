@@ -1,0 +1,2 @@
+Patient ID,Patient Name,Age,Gender,ECG Date,Heart Rate,PR Interval,QRS Duration,QT Interval,Diagnosis,Confidence Score
+P001,Laura Stevens,32,Female,12/01/2024,72,150,90,360,"Normal Sinus Rhythm, Sinus Rhythm, Ischemic, No Acute Ischemic Changes",1.00

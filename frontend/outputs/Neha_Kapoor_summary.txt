@@ -1,0 +1,42 @@
+========== REPORT SUMMARY ==========
+
+Summary:
+
+Clinical ECG Summary:
+
+    Patient Neha Kapoor,
+    age 42,
+    Female.
+
+    ECG taken on
+    04/04/2025.
+
+    Heart rate is
+    60 bpm.
+
+    PR interval
+    180,
+
+    QRS duration
+    92,
+
+    QT interval
+    400.
+
+    Diagnosis:
+    Sinus Rhythm.
+
+Key Findings:
+1. Clinical ecg summary:
+
+    patient neha kapoor,
+    age 42,
+    female
+2. Ecg taken on
+    04/04/2025
+
+Severity Level:
+NORMAL
+
+Critical Points:
+None

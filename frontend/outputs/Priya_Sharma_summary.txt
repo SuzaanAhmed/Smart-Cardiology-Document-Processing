@@ -1,0 +1,42 @@
+========== REPORT SUMMARY ==========
+
+Summary:
+
+Clinical ECG Summary:
+
+    Patient Priya Sharma,
+    age 35,
+    Female.
+
+    ECG taken on
+    07/18/2024.
+
+    Heart rate is
+    102 bpm.
+
+    PR interval
+    168,
+
+    QRS duration
+    96,
+
+    QT interval
+    350.
+
+    Diagnosis:
+    Sinus Tachycardia.
+
+Key Findings:
+1. Clinical ecg summary:
+
+    patient priya sharma,
+    age 35,
+    female
+2. Ecg taken on
+    07/18/2024
+
+Severity Level:
+NORMAL
+
+Critical Points:
+None

@@ -1,118 +1,236 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>ECG AI Processor</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>ECG Analysis</title>
 
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f0f7f9, #e6f0f3);
-            margin: 0;
-            padding: 0;
-            color: #2c3e50;
-        }
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+          rel="stylesheet">
 
-        .container {
-            width: 60%;
-            margin: 50px auto;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-        }
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 
-        h1 {
-            text-align: center;
-            color: #1f6f8b;
-        }
-
-        .upload-box {
-            text-align: center;
-            padding: 25px;
-            border: 2px dashed #1f6f8b;
-            border-radius: 12px;
-        }
-
-        button {
-            padding: 12px 28px;
-            background: #1f6f8b;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .alert-btn {
-            background: linear-gradient(135deg, #ff6b6b, #ff3b3b);
-            margin-top: 20px;
-        }
-
-        table {
-            width: 100%;
-            margin-top: 15px;
-        }
-
-        th {
-            background: #1f6f8b;
-            color: white;
-            padding: 10px;
-        }
-
-        td {
-            padding: 10px;
-            background: #f4f9fb;
-        }
-    </style>
 </head>
 
 <body>
 
-<div class="container">
+<!-- SIDEBAR -->
 
-    <h1>🫀 ECG AI Processor</h1>
+<div class="sidebar">
 
-    <div class="upload-box">
-        <form method="POST" enctype="multipart/form-data">
-            <input type="file" name="file" required><br><br>
-            <button type="submit">Upload & Extract</button>
-        </form>
+    <h2>🫀 Cardio AI</h2>
+
+    <a href="/dashboard">🏠 Dashboard</a>
+
+    <a href="/upload">📤 Upload ECG</a>
+
+    <a href="/prediction">🧠 Prediction</a>
+
+    <a href="/alerts">🚨 Alerts</a>
+
+    <a href="/analytics">📊 Analytics</a>
+
+    <a href="/search">🔍 Search Patient</a>
+
+</div>
+
+<!-- MAIN CONTENT -->
+
+<div class="main-content">
+
+    <!-- PAGE HEADER -->
+
+    <div class="page-header">
+
+        <h1>🫀 ECG AI Processor</h1>
+
+        <p>
+            Upload ECG image for AI-powered analysis,
+            real-time alerts, prediction and
+            AI-generated clinical summary.
+        </p>
+
     </div>
 
-    {% if data %}
-    <h2>Extracted Data</h2>
+    <!-- UPLOAD BOX -->
 
-    <table>
-        {% for key, value in data.items() %}
-        <tr>
-            <th>{{ key }}</th>
-            <td>{{ value }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    <div class="upload-box">
 
-    <!-- 🚨 ALERT BUTTON -->
-    <div style="text-align:center;">
-        <a href="/alerts" target="_blank">
-            <button class="alert-btn">
-                🚨 Check Patient Condition
+        <form method="POST"
+              enctype="multipart/form-data">
+
+            <input type="file"
+                   name="file"
+                   required>
+
+            <br><br>
+
+            <button type="submit">
+
+                Upload & Analyze
+
             </button>
-        </a>
+
+        </form>
+
+    </div>
+
+    <!-- EXTRACTED PATIENT DATA -->
+
+    {% if data %}
+
+    <div class="table-container">
+
+        <h2>📋 Extracted Patient Data</h2>
+
+        <table>
+
+            {% for key, value in data.items() %}
+
+            <tr>
+
+                <th>{{ key }}</th>
+
+                <td>{{ value }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    {% endif %}
+
+    <!-- REAL-TIME ALERT -->
+
+    {% if alert %}
+
+    <div class="alert-section">
+
+        <h2>🚨 Real-Time Alert</h2>
+
+        <div class="alert-card">
+
+            <p>
+
+                <b>Alert Type:</b>
+
+                {{ alert["Alert Type"] }}
+
+            </p>
+
+            <p>
+
+                <b>Severity Score:</b>
+
+                {{ alert["Severity Score"] }}
+
+            </p>
+
+            <p>
+
+                <b>Recommendation:</b>
+
+                {{ alert["Recommendation"] }}
+
+            </p>
+
+            <p>
+
+                <b>Status:</b>
+
+                {{ alert["Status"] }}
+
+            </p>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+    <!-- AI PREDICTION -->
+
+    {% if prediction %}
+
+    <div class="prediction-section">
+
+        <h2>🧠 AI Prediction Result</h2>
+
+        <div class="prediction-card">
+
+            <p>
+
+                <b>Patient ID:</b>
+
+                {{ prediction["Patient ID"] }}
+
+            </p>
+
+            <p>
+
+                <b>Patient Name:</b>
+
+                {{ prediction["Patient Name"] }}
+
+            </p>
+
+            <p>
+
+                <b>Risk Level:</b>
+
+                {{ prediction["Risk Level"] }}
+
+            </p>
+
+            <p>
+
+                <b>Probability:</b>
+
+                {{ prediction["Probability"] }}%
+
+            </p>
+
+            <p>
+
+                <b>Suggested Action:</b>
+
+                {{ prediction["Suggested Action"] }}
+
+            </p>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+    <!-- MODULE 4 SUMMARY -->
+
+    {% if summary %}
+
+    <div class="summary-section">
+
+        <h2>🧠 AI Clinical Summary</h2>
+
+        <div class="summary-card">
+
+            <div class="summary-text">
+
+                {{ summary.replace('\n', '<br>') | safe }}
+
+            </div>
+
+        </div>
+
     </div>
 
     {% endif %}
 
 </div>
-
-<!-- OPTIONAL AUTO OPEN -->
-{% if data %}
-<script>
-    setTimeout(() => {
-        window.open("/alerts", "_blank");
-    }, 1200);
-</script>
-{% endif %}
 
 </body>
 </html>
