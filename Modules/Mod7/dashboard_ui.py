@@ -1,5 +1,3 @@
-# dashboard_ui.py
-
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QColor
@@ -7,7 +5,10 @@ from PyQt5.QtGui import QColor
 from charts import ChartWidget
 
 
-# ---------------- KPI CARD ---------------- #
+# =========================================
+# KPI CARD
+# =========================================
+
 class KPIWidget(QFrame):
 
     def __init__(self, title, value, color):
@@ -35,7 +36,9 @@ class KPIWidget(QFrame):
 
         layout = QVBoxLayout(self)
 
-        layout.setContentsMargins(25, 20, 25, 20)
+        layout.setContentsMargins(
+            25, 20, 25, 20
+        )
 
         self.title = QLabel(title)
 
@@ -59,7 +62,10 @@ class KPIWidget(QFrame):
         layout.addWidget(self.value)
 
 
-# ---------------- SIDEBAR BUTTON ---------------- #
+# =========================================
+# SIDEBAR BUTTON
+# =========================================
+
 class SidebarButton(QPushButton):
 
     def __init__(self, text):
@@ -87,7 +93,10 @@ class SidebarButton(QPushButton):
         """)
 
 
-# ---------------- PATIENT DETAILS WINDOW ---------------- #
+# =========================================
+# PATIENT DETAILS WINDOW
+# =========================================
+
 class ECGWindow(QDialog):
 
     def __init__(self, patient):
@@ -155,7 +164,8 @@ Heart Rate: {patient['heart_rate']} BPM
 
 Risk Level: {patient['risk']}
 
-Confidence Score: {patient['score']}
+Prediction Probability:
+{patient['probability']}%
 
 Diagnosis:
 {patient['ecg']}
@@ -197,7 +207,10 @@ Diagnosis:
         layout.addWidget(close_btn)
 
 
-# ---------------- MAIN WINDOW ---------------- #
+# =========================================
+# MAIN WINDOW
+# =========================================
+
 class DashboardWindow(QMainWindow):
 
     def __init__(self, data_handler):
@@ -228,20 +241,32 @@ class DashboardWindow(QMainWindow):
 
         self.load_data()
 
-    # ---------------- UI ---------------- #
+    # =====================================
+    # UI
+    # =====================================
+
     def init_ui(self):
 
         container_main = QWidget()
 
-        self.setCentralWidget(container_main)
+        self.setCentralWidget(
+            container_main
+        )
 
-        layout = QHBoxLayout(container_main)
+        layout = QHBoxLayout(
+            container_main
+        )
 
-        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setContentsMargins(
+            0, 0, 0, 0
+        )
 
         layout.setSpacing(0)
 
-        # ---------------- SIDEBAR ---------------- #
+        # =================================
+        # SIDEBAR
+        # =================================
+
         sidebar = QFrame()
 
         sidebar.setFixedWidth(240)
@@ -253,7 +278,9 @@ class DashboardWindow(QMainWindow):
 
         side_layout = QVBoxLayout(sidebar)
 
-        side_layout.setContentsMargins(20, 25, 20, 25)
+        side_layout.setContentsMargins(
+            20, 25, 20, 25
+        )
 
         title = QLabel("🫀 Cardio AI")
 
@@ -265,17 +292,32 @@ class DashboardWindow(QMainWindow):
 
         side_layout.addWidget(title)
 
-        self.btn_all = SidebarButton("📊 Dashboard")
-        self.btn_patients = SidebarButton("👨‍⚕️ Patients")
-        self.btn_alerts = SidebarButton("🚨 High Risk")
+        self.btn_all = SidebarButton(
+            "📊 Dashboard"
+        )
 
-        side_layout.addWidget(self.btn_all)
-        side_layout.addWidget(self.btn_patients)
-        side_layout.addWidget(self.btn_alerts)
+        self.btn_patients = SidebarButton(
+            "👨‍⚕️ Patients"
+        )
+
+        self.btn_alerts = SidebarButton(
+            "🚨 High Risk"
+        )
+
+        side_layout.addWidget(
+            self.btn_all
+        )
+
+        side_layout.addWidget(
+            self.btn_patients
+        )
+
+        side_layout.addWidget(
+            self.btn_alerts
+        )
 
         side_layout.addStretch()
 
-        # BUTTON ACTIONS
         self.btn_all.clicked.connect(
             self.show_dashboard
         )
@@ -290,10 +332,15 @@ class DashboardWindow(QMainWindow):
 
         layout.addWidget(sidebar)
 
-        # ---------------- MAIN AREA ---------------- #
+        # =================================
+        # MAIN AREA
+        # =================================
+
         self.scroll = QScrollArea()
 
-        self.scroll.setWidgetResizable(True)
+        self.scroll.setWidgetResizable(
+            True
+        )
 
         self.scroll.setStyleSheet("""
             QScrollArea {
@@ -303,7 +350,9 @@ class DashboardWindow(QMainWindow):
 
         container = QWidget()
 
-        self.scroll_layout = QVBoxLayout(container)
+        self.scroll_layout = QVBoxLayout(
+            container
+        )
 
         self.scroll_layout.setContentsMargins(
             20, 20, 20, 20
@@ -315,7 +364,10 @@ class DashboardWindow(QMainWindow):
 
         layout.addWidget(self.scroll)
 
-        # ---------------- HEADER ---------------- #
+        # =================================
+        # HEADER
+        # =================================
+
         header_layout = QHBoxLayout()
 
         header = QLabel(
@@ -342,9 +394,14 @@ class DashboardWindow(QMainWindow):
 
         header_layout.addWidget(status)
 
-        self.scroll_layout.addLayout(header_layout)
+        self.scroll_layout.addLayout(
+            header_layout
+        )
 
-        # ---------------- KPI ---------------- #
+        # =================================
+        # KPI
+        # =================================
+
         kpi_layout = QHBoxLayout()
 
         self.kpi1 = KPIWidget(
@@ -354,34 +411,50 @@ class DashboardWindow(QMainWindow):
         )
 
         self.kpi2 = KPIWidget(
-            "⚠ High Risk %",
+            "⚠ High Risk",
             "0",
             "#FF5252"
         )
 
         self.kpi3 = KPIWidget(
-            "🚨 Alerts",
+            "🚨 Medium Risk",
             "0",
             "#FFC107"
         )
 
         for kpi in [
+
             self.kpi1,
+
             self.kpi2,
+
             self.kpi3
         ]:
+
             kpi_layout.addWidget(kpi)
 
-        self.scroll_layout.addLayout(kpi_layout)
+        self.scroll_layout.addLayout(
+            kpi_layout
+        )
 
-        # ---------------- CHARTS ---------------- #
+        # =================================
+        # CHARTS
+        # =================================
+
         chart_layout = QHBoxLayout()
 
         self.bar = ChartWidget()
         self.pie = ChartWidget()
         self.line = ChartWidget()
 
-        for chart in [self.bar, self.pie, self.line]:
+        for chart in [
+
+            self.bar,
+
+            self.pie,
+
+            self.line
+        ]:
 
             card = QFrame()
 
@@ -399,9 +472,14 @@ class DashboardWindow(QMainWindow):
 
             chart_layout.addWidget(card)
 
-        self.scroll_layout.addLayout(chart_layout)
+        self.scroll_layout.addLayout(
+            chart_layout
+        )
 
-        # ---------------- FILTERS ---------------- #
+        # =================================
+        # FILTERS
+        # =================================
+
         filter_layout = QHBoxLayout()
 
         self.search_box = QLineEdit()
@@ -427,135 +505,60 @@ class DashboardWindow(QMainWindow):
         self.filter_box = QComboBox()
 
         self.filter_box.addItems([
+
             "All",
-            "Low",
-            "Medium",
-            "High"
+
+            "LOW",
+
+            "MEDIUM",
+
+            "HIGH"
         ])
 
         self.filter_box.currentTextChanged.connect(
             self.apply_all_filters
         )
 
-        self.filter_box.setStyleSheet("""
-            QComboBox {
-                background-color: #1f1f1f;
-                border: 1px solid #333;
-                border-radius: 10px;
-                padding: 8px;
-                color: white;
-            }
-        """)
-
-        filter_layout.addWidget(self.search_box)
-        filter_layout.addWidget(self.filter_box)
-
-        self.scroll_layout.addLayout(filter_layout)
-
-        # ---------------- ADVANCED FILTERS ---------------- #
-        advanced_filter_layout = QHBoxLayout()
-
-        self.age_filter = QComboBox()
-        self.age_filter.addItems([
-            "All Ages",
-            "Below 40",
-            "40-60",
-            "Above 60"
-        ])
-
-        self.gender_filter = QComboBox()
-        self.gender_filter.addItems([
-            "All Gender",
-            "Male",
-            "Female"
-        ])
-
-        self.hr_filter = QComboBox()
-        self.hr_filter.addItems([
-            "All HR",
-            "Low HR",
-            "Normal HR",
-            "High HR"
-        ])
-
-        for combo in [
-            self.age_filter,
-            self.gender_filter,
-            self.hr_filter
-        ]:
-
-            combo.setStyleSheet("""
-                QComboBox {
-                    background-color: #1f1f1f;
-                    border: 1px solid #333;
-                    border-radius: 10px;
-                    padding: 8px;
-                    color: white;
-                }
-            """)
-
-            combo.currentTextChanged.connect(
-                self.apply_all_filters
-            )
-
-        advanced_filter_layout.addWidget(
-            self.age_filter
+        filter_layout.addWidget(
+            self.search_box
         )
 
-        advanced_filter_layout.addWidget(
-            self.gender_filter
+        filter_layout.addWidget(
+            self.filter_box
         )
-
-        advanced_filter_layout.addWidget(
-            self.hr_filter
-        )
-
-        advanced_filter_layout.addStretch()
 
         self.scroll_layout.addLayout(
-            advanced_filter_layout
+            filter_layout
         )
 
-        # ---------------- TABLE ---------------- #
+        # =================================
+        # TABLE
+        # =================================
+
         self.table = QTableWidget()
 
-        self.table.verticalHeader().setVisible(False)
+        self.table.verticalHeader().setVisible(
+            False
+        )
 
-        self.table.setAlternatingRowColors(True)
+        self.table.setAlternatingRowColors(
+            True
+        )
 
         self.table.cellDoubleClicked.connect(
             self.show_patient_details
         )
 
-        self.table.setStyleSheet("""
-            QTableWidget {
-                background-color: #1f1f1f;
-                color: white;
-                alternate-background-color: #262626;
-                border: 1px solid #333;
-                border-radius: 14px;
-                font-size: 14px;
-            }
-
-            QHeaderView::section {
-                background-color: #2d2d2d;
-                color: white;
-                padding: 12px;
-                border: none;
-                font-size: 15px;
-                font-weight: 600;
-            }
-
-            QTableWidget::item:selected {
-                background-color: #0078D7;
-            }
-        """)
-
         self.table.setMinimumHeight(450)
 
-        self.scroll_layout.addWidget(self.table)
+        self.scroll_layout.addWidget(
+            self.table
+        )
 
-    # ---------------- LOAD DATA ---------------- #
+    # =====================================
+    # LOAD DATA
+    # =====================================
+
     def load_data(self):
 
         kpis = self.data_handler.get_kpis()
@@ -565,11 +568,11 @@ class DashboardWindow(QMainWindow):
         )
 
         self.kpi2.value.setText(
-            f"{kpis['high_risk']}%"
+            str(kpis["high_risk"])
         )
 
         self.kpi3.value.setText(
-            str(kpis["alerts"])
+            str(kpis["medium_risk"])
         )
 
         self.bar.plot_bar(
@@ -581,17 +584,23 @@ class DashboardWindow(QMainWindow):
         )
 
         patients = [
+
             p["id"]
+
             for p in self.data_handler.get_patients()
         ]
 
         heart_rates = [
+
             p["heart_rate"]
+
             for p in self.data_handler.get_patients()
         ]
 
         self.line.plot_line(
+
             patients,
+
             heart_rates
         )
 
@@ -599,37 +608,58 @@ class DashboardWindow(QMainWindow):
             self.data_handler.get_patients()
         )
 
-    # ---------------- TABLE ---------------- #
+    # =====================================
+    # TABLE
+    # =====================================
+
     def populate(self, data):
 
         self.current_data = data
 
-        self.table.setRowCount(len(data))
+        self.table.setRowCount(
+            len(data)
+        )
 
         self.table.setColumnCount(8)
 
         self.table.setHorizontalHeaderLabels([
+
             "Patient ID",
+
             "Patient Name",
+
             "Age",
+
             "Gender",
+
             "Heart Rate",
+
             "Diagnosis",
+
             "Risk",
-            "Confidence"
+
+            "Probability"
         ])
 
         for i, p in enumerate(data):
 
             values = [
+
                 p["id"],
+
                 p["name"],
+
                 p["age"],
+
                 p["gender"],
+
                 p["heart_rate"],
+
                 p["ecg"][:40] + "...",
+
                 p["risk"],
-                p["score"]
+
+                f"{p['probability']}%"
             ]
 
             for col, value in enumerate(values):
@@ -640,13 +670,13 @@ class DashboardWindow(QMainWindow):
 
                 if col == 6:
 
-                    if value == "High":
+                    if value == "HIGH":
 
                         item.setBackground(
                             QColor("#ff1f1f")
                         )
 
-                    elif value == "Medium":
+                    elif value == "MEDIUM":
 
                         item.setBackground(
                             QColor("#ffee00")
@@ -666,123 +696,90 @@ class DashboardWindow(QMainWindow):
             QHeaderView.Stretch
         )
 
-    # ---------------- FILTERS ---------------- #
+    # =====================================
+    # FILTERS
+    # =====================================
+
     def apply_all_filters(self):
 
         data = self.data_handler.get_patients()
 
-        # SEARCH
         query = self.search_box.text().lower()
 
         if query:
 
             data = [
+
                 d for d in data
+
                 if query in d["id"].lower()
             ]
 
-        # RISK
         risk = self.filter_box.currentText()
 
         if risk != "All":
 
             data = [
+
                 d for d in data
+
                 if d["risk"] == risk
-            ]
-
-        # AGE FILTER
-        age_filter = self.age_filter.currentText()
-
-        if age_filter == "Below 40":
-
-            data = [
-                d for d in data
-                if int(d["age"]) < 40
-            ]
-
-        elif age_filter == "40-60":
-
-            data = [
-                d for d in data
-                if 40 <= int(d["age"]) <= 60
-            ]
-
-        elif age_filter == "Above 60":
-
-            data = [
-                d for d in data
-                if int(d["age"]) > 60
-            ]
-
-        # GENDER FILTER
-        gender_filter = self.gender_filter.currentText()
-
-        if gender_filter != "All Gender":
-
-            data = [
-                d for d in data
-                if d["gender"] == gender_filter
-            ]
-
-        # HEART RATE FILTER
-        hr_filter = self.hr_filter.currentText()
-
-        if hr_filter == "Low HR":
-
-            data = [
-                d for d in data
-                if int(d["heart_rate"]) < 60
-            ]
-
-        elif hr_filter == "Normal HR":
-
-            data = [
-                d for d in data
-                if 60 <= int(d["heart_rate"]) <= 100
-            ]
-
-        elif hr_filter == "High HR":
-
-            data = [
-                d for d in data
-                if int(d["heart_rate"]) > 100
             ]
 
         self.populate(data)
 
-    # ---------------- PATIENT DETAILS ---------------- #
-    def show_patient_details(self, row, column):
+    # =====================================
+    # PATIENT DETAILS
+    # =====================================
+
+    def show_patient_details(
+        self,
+        row,
+        column
+    ):
 
         patient = self.current_data[row]
 
-        self.ecg_window = ECGWindow(patient)
+        self.ecg_window = ECGWindow(
+            patient
+        )
 
         self.ecg_window.exec_()
 
-    # ---------------- DASHBOARD BUTTON ---------------- #
+    # =====================================
+    # DASHBOARD BUTTON
+    # =====================================
+
     def show_dashboard(self):
 
         self.scroll.verticalScrollBar().setValue(0)
 
-        self.filter_box.setCurrentText("All")
+        self.filter_box.setCurrentText(
+            "All"
+        )
 
         self.search_box.clear()
 
         self.load_data()
 
-    # ---------------- PATIENTS BUTTON ---------------- #
+    # =====================================
+    # PATIENT BUTTON
+    # =====================================
+
     def scroll_to_table(self):
 
         self.scroll.ensureWidgetVisible(
             self.table
         )
 
-    # ---------------- HIGH RISK BUTTON ---------------- #
+    # =====================================
+    # HIGH RISK BUTTON
+    # =====================================
+
     def show_high_risk(self):
 
         self.filter_box.setCurrentText(
-            "High"
+            "HIGH"
         )
 
         self.scroll.ensureWidgetVisible(

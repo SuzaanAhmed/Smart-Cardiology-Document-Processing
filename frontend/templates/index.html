@@ -1,75 +1,256 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <title>Smart Cardiology</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-
-<body>
-
-    <h1>Smart Cardiology Document Processing</h1>
-
-    <button>Analyse</button>
-
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-
-</body>
-</html> -->
-
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Cardiology System</title>
+<html>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<head>
+
+    <title>ECG Analysis</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
 </head>
+
 <body>
 
-    <div class="container">
+<!-- SIDEBAR -->
 
-        <h1>Smart Cardiology Document Processing</h1>
+<div class="sidebar">
 
-        <!-- Upload Section -->
-        <div class="card">
+    <h2>🫀 Cardio AI</h2>
 
-            <h2>Select ECG File</h2>
+    <a href="/dashboard">🏠 Dashboard</a>
 
-            <input type="file" id="fileInput">
+    <a href="/upload">📤 Upload ECG</a>
 
-            <button onclick="uploadFile()">
-                Analyse
+    <a href="/prediction">🧠 Prediction</a>
+
+    <a href="/alerts">🚨 Alerts</a>
+
+    <a href="/analytics">📊 Analytics</a>
+
+    <a href="/search">🔍 Search Patient</a>
+
+</div>
+
+<!-- MAIN CONTENT -->
+
+<div class="main-content">
+
+    <!-- PAGE HEADER -->
+
+    <div class="page-header">
+
+        <h1>🫀 ECG AI Processor</h1>
+
+        <p>
+            Upload ECG image for AI-powered analysis,
+            real-time alerts, prediction and
+            AI-generated clinical summary.
+        </p>
+
+    </div>
+
+    <!-- UPLOAD BOX -->
+
+    <div class="upload-box">
+
+        <form method="POST"
+              enctype="multipart/form-data">
+
+            <input type="file"
+                   name="file"
+                   required>
+
+            <br><br>
+
+            <button type="submit">
+
+                Upload & Analyze
+
             </button>
 
-        </div>
+        </form>
 
-        <!-- Status -->
-        <div class="card">
+    </div>
 
-            <h2>Status</h2>
+    <!-- EXTRACTED PATIENT DATA -->
 
-            <p id="statusText">
-                Waiting for file...
+    {% if data %}
+
+    <div class="table-container">
+
+        <h2>📋 Extracted Patient Data</h2>
+
+        <table>
+
+            {% for key, value in data.items() %}
+
+            <tr>
+
+                <th>{{ key }}</th>
+
+                <td>{{ value }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    {% endif %}
+
+    <!-- REAL-TIME ALERT -->
+
+    {% if alert %}
+
+    <div class="alert-section">
+
+        <h2>🚨 Real-Time Alert</h2>
+
+        <div class="alert-card">
+
+            <p>
+
+                <b>Alert Type:</b>
+
+                {{ alert["Alert Type"] }}
+
             </p>
 
-        </div>
+            <p>
 
-        <!-- Summary -->
-        <div class="card">
+                <b>Severity Score:</b>
 
-            <h2>Summary</h2>
+                {{ alert["Severity Score"] }}
 
-            <pre id="summaryBox">
-No summary yet.
-            </pre>
+            </p>
+
+            <p>
+
+                <b>Recommendation:</b>
+
+                {{ alert["Recommendation"] }}
+
+            </p>
+
+            <p>
+
+                <b>Status:</b>
+
+                {{ alert["Status"] }}
+
+            </p>
 
         </div>
 
     </div>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    {% endif %}
+
+    <!-- AI PREDICTION -->
+
+    {% if prediction %}
+
+    <div class="prediction-section">
+
+        <h2>🧠 AI Prediction Result</h2>
+
+        <div class="prediction-card">
+
+            <p>
+
+                <b>Patient ID:</b>
+
+                {{ prediction["Patient ID"] }}
+
+            </p>
+
+            <p>
+
+                <b>Patient Name:</b>
+
+                {{ prediction["Patient Name"] }}
+
+            </p>
+
+            <p>
+
+                <b>Risk Level:</b>
+
+                {{ prediction["Risk Level"] }}
+
+            </p>
+
+            <p>
+
+                <b>Probability:</b>
+
+                {{ prediction["Probability"] }}%
+
+            </p>
+
+            <p>
+
+                <b>Suggested Action:</b>
+
+                {{ prediction["Suggested Action"] }}
+
+            </p>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+    <!-- MODULE 4 SUMMARY -->
+
+    {% if summary %}
+
+    <div class="summary-section">
+
+        <h2>🧠 AI Clinical Summary</h2>
+
+        <div class="summary-card">
+
+            <div class="summary-text">
+
+                {{ summary.replace('\n', '<br>') | safe }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+    <!-- PDF EXPORT -->
+
+    {% if data %}
+
+    <div style="margin-top: 30px;">
+
+        <a href="/download_report">
+
+            <button>
+
+                📄 Download Patient Report
+
+            </button>
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
 
 </body>
 </html>

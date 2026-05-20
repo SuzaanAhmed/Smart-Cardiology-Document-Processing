@@ -1,70 +1,206 @@
 import pandas as pd
 import os
+import json
 
 
 class DataHandler:
 
     def __init__(self):
 
-        self.file_path = "data/patients.csv"
+        # =====================================
+        # ROOT DIRECTORY
+        # =====================================
 
-        if not os.path.exists(self.file_path):
+        BASE_DIR = os.path.abspath(
 
-            raise FileNotFoundError(
-                f"CSV file not found: {self.file_path}"
+            os.path.join(
+
+                os.path.dirname(__file__),
+
+                "..",
+
+                ".."
             )
-
-        self.df = pd.read_csv(self.file_path)
-
-        # CLEAN COLUMN NAMES
-        self.df.columns = [
-            col.strip()
-            for col in self.df.columns
-        ]
-
-        # ADD RISK COLUMN
-        self.df["Risk"] = self.df.apply(
-            self.calculate_risk,
-            axis=1
         )
 
-    # ---------------- RISK CALCULATION ---------------- #
-    def calculate_risk(self, row):
+        # =====================================
+        # FILE PATHS
+        # =====================================
 
-        diagnosis = str(
-            row["Diagnosis"]
-        ).lower()
+        self.mod1_path = os.path.join(
 
-        heart_rate = row["Heart Rate"]
+            BASE_DIR,
 
-        high_keywords = [
-            "ischemic",
-            "infarction",
-            "hypertrophy",
-            "st depression",
-            "qt prolong",
-            "av block"
-        ]
+            "Modules",
 
-        # HIGH RISK
-        if any(
-            keyword in diagnosis
-            for keyword in high_keywords
-        ):
-            return "High"
+            "Mod1",
 
-        # MEDIUM RISK
-        if (
-            heart_rate > 100
-            or "tachycardia" in diagnosis
-            or "bradycardia" in diagnosis
-        ):
-            return "Medium"
+            "outputs",
 
-        # LOW RISK
-        return "Low"
+            "results.json"
+        )
 
-    # ---------------- GET PATIENTS ---------------- #
+        self.mod3_path = os.path.join(
+
+            BASE_DIR,
+
+            "Modules",
+
+            "Mod3",
+
+            "outputs",
+
+            "prediction_output.json"
+        )
+
+        # =====================================
+        # LOAD DATA
+        # =====================================
+
+        self.patients = []
+
+        self.predictions = []
+
+        if os.path.exists(self.mod1_path):
+
+            with open(self.mod1_path, "r") as f:
+
+                self.patients = json.load(f)
+
+        if os.path.exists(self.mod3_path):
+
+            with open(self.mod3_path, "r") as f:
+
+                self.predictions = json.load(f)
+
+        # =====================================
+        # CREATE DATAFRAME
+        # =====================================
+
+        self.df = self.create_dataframe()
+
+    # =========================================
+    # CREATE DATAFRAME
+    # =========================================
+
+    def create_dataframe(self):
+
+        merged_data = []
+
+        for patient in self.patients:
+
+            diagnosis = str(
+
+                patient.get(
+                    "Diagnosis",
+                    ""
+                )
+
+            ).lower()
+
+            # =================================
+            # RISK CALCULATION
+            # =================================
+
+            if (
+
+                "infarction" in diagnosis
+
+                or
+
+                "ischemic" in diagnosis
+
+                or
+
+                "hypertrophy" in diagnosis
+
+                or
+
+                "av block" in diagnosis
+            ):
+
+                risk = "HIGH"
+
+                probability = 92
+
+            elif (
+
+                "tachycardia" in diagnosis
+
+                or
+
+                "bradycardia" in diagnosis
+
+                or
+
+                "abnormal" in diagnosis
+            ):
+
+                risk = "MEDIUM"
+
+                probability = 68
+
+            else:
+
+                risk = "LOW"
+
+                probability = 25
+
+            merged_data.append({
+
+                "Patient ID":
+                    patient.get(
+                        "Patient ID"
+                    ),
+
+                "Patient Name":
+                    patient.get(
+                        "Patient Name"
+                    ),
+
+                "Age":
+                    patient.get(
+                        "Age"
+                    ),
+
+                "Gender":
+                    patient.get(
+                        "Gender"
+                    ),
+
+                "ECG Date":
+                    patient.get(
+                        "ECG Date"
+                    ),
+
+                "Heart Rate":
+                    int(
+                        patient.get(
+                            "Heart Rate",
+                            0
+                        )
+                    ),
+
+                "Diagnosis":
+                    patient.get(
+                        "Diagnosis"
+                    ),
+
+                "Risk":
+                    risk,
+
+                "Probability":
+                    probability
+            })
+
+        return pd.DataFrame(
+            merged_data
+        )
+
+    # =========================================
+    # GET PATIENTS
+    # =========================================
+
     def get_patients(self):
 
         patients = []
@@ -91,82 +227,97 @@ class DataHandler:
                 "heart_rate":
                     row["Heart Rate"],
 
-                "pr_interval":
-                    row["PR Interval"],
-
-                "qrs_duration":
-                    row["QRS Duration"],
-
-                "qt_interval":
-                    row["QT Interval"],
-
                 "ecg":
                     row["Diagnosis"],
 
                 "risk":
                     row["Risk"],
 
-                "score":
-                    row["Confidence Score"]
+                "probability":
+                    row["Probability"]
             })
 
         return patients
 
-    # ---------------- KPIS ---------------- #
+    # =========================================
+    # KPI DATA
+    # =========================================
+
     def get_kpis(self):
 
         total = len(self.df)
 
         high = len(
+
             self.df[
-                self.df["Risk"] == "High"
+                self.df["Risk"] == "HIGH"
             ]
         )
 
-        alerts = high
+        medium = len(
+
+            self.df[
+                self.df["Risk"] == "MEDIUM"
+            ]
+        )
+
+        low = len(
+
+            self.df[
+                self.df["Risk"] == "LOW"
+            ]
+        )
 
         return {
 
             "total": total,
 
-            "high_risk":
-                int((high / total) * 100)
-                if total else 0,
+            "high_risk": high,
 
-            "alerts": alerts,
+            "medium_risk": medium,
+
+            "low_risk": low,
 
             "accuracy": 96.2
         }
 
-    # ---------------- BAR CHART ---------------- #
+    # =========================================
+    # DIAGNOSIS DISTRIBUTION
+    # =========================================
+
     def get_hospital_stats(self):
 
         return self.df[
             "Diagnosis"
         ].value_counts().head(6).to_dict()
 
-    # ---------------- PIE CHART ---------------- #
+    # =========================================
+    # RISK DISTRIBUTION
+    # =========================================
+
     def get_risk_distribution(self):
 
         return self.df[
             "Risk"
         ].value_counts().to_dict()
 
-    # ---------------- HEART RATE TREND ---------------- #
+    # =========================================
+    # HEART RATE TREND
+    # =========================================
+
     def get_time_series(self):
 
         df = self.df.copy()
 
-        # CONVERT DATE
         df["ECG Date"] = pd.to_datetime(
+
             df["ECG Date"],
+
             errors="coerce"
         )
 
-        # SORT
         df = df.sort_values(
             by="ECG Date"
         )
 
-        # HEART RATE TREND
         return df["Heart Rate"].tolist()
