@@ -1,14 +1,479 @@
 [
     {
-        "Alert ID": "4720480f",
-        "Patient ID": "P010",
+        "Alert ID": "cf6249e4",
+        "Patient ID": "P001",
         "Alert Type": "Warning",
-        "Severity Score": 3,
+        "Severity Score": 2,
+        "Detected Issues": [
+            "ECG Abnormality"
+        ],
+        "Recommendation": "Patient monitoring advised",
+        "Timestamp": "2026-05-20 12:21:01",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "c4ce39aa",
+        "Patient ID": "P002",
+        "Alert Type": "Warning",
+        "Severity Score": 2,
+        "Detected Issues": [
+            "Abnormal Tachycardia"
+        ],
+        "Recommendation": "Patient monitoring advised",
+        "Timestamp": "2026-05-20 12:23:41",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "b7ab0735",
+        "Patient ID": "P002",
+        "Alert Type": "Warning",
+        "Severity Score": 2,
+        "Detected Issues": [
+            "Abnormal Tachycardia"
+        ],
+        "Recommendation": "Patient monitoring advised",
+        "Timestamp": "2026-05-20 12:23:49",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "ddc2ff17",
+        "Patient ID": "P003",
+        "Alert Type": "High Risk",
+        "Severity Score": 4,
+        "Detected Issues": [
+            "Possible Heart Attack"
+        ],
+        "Recommendation": "Urgent ECG evaluation recommended",
+        "Timestamp": "2026-05-20 12:24:37",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "80d667a5",
+        "Patient ID": "P004",
+        "Alert Type": "Emergency",
+        "Severity Score": 8,
+        "Detected Issues": [
+            "Possible Heart Attack",
+            "Ischemic Changes"
+        ],
+        "Recommendation": "Immediate cardiologist review required",
+        "Timestamp": "2026-05-20 12:25:09",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "ab1c466b",
+        "Patient ID": "P005",
+        "Alert Type": "Warning",
+        "Severity Score": 2,
+        "Detected Issues": [
+            "Abnormal Bradycardia"
+        ],
+        "Recommendation": "Patient monitoring advised",
+        "Timestamp": "2026-05-20 12:25:36",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "94468429",
+        "Patient ID": "P005",
+        "Alert Type": "Warning",
+        "Severity Score": 2,
+        "Detected Issues": [
+            "Abnormal Bradycardia"
+        ],
+        "Recommendation": "Patient monitoring advised",
+        "Timestamp": "2026-05-20 12:27:38",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "ae4bd5bd",
+        "Patient ID": "P001",
+        "Alert Type": "Warning",
+        "Severity Score": 2,
+        "Detected Issues": [
+            "ECG Abnormality"
+        ],
+        "Recommendation": "Patient monitoring advised",
+        "Timestamp": "2026-05-20 12:36:07",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "82ab8b3f",
+        "Patient ID": "P002",
+        "Alert Type": "Warning",
+        "Severity Score": 2,
+        "Detected Issues": [
+            "Abnormal Tachycardia"
+        ],
+        "Recommendation": "Patient monitoring advised",
+        "Timestamp": "2026-05-20 12:37:03",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "3faf2445",
+        "Patient ID": "P003",
+        "Alert Type": "High Risk",
+        "Severity Score": 4,
+        "Detected Issues": [
+            "Possible Heart Attack"
+        ],
+        "Recommendation": "Urgent ECG evaluation recommended",
+        "Timestamp": "2026-05-20 12:38:09",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "8d72cc69",
+        "Patient ID": "P004",
+        "Alert Type": "Emergency",
+        "Severity Score": 8,
+        "Detected Issues": [
+            "Possible Heart Attack",
+            "Ischemic Changes"
+        ],
+        "Recommendation": "Immediate cardiologist review required",
+        "Timestamp": "2026-05-20 12:38:44",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "77789150",
+        "Patient ID": "P005",
+        "Alert Type": "Warning",
+        "Severity Score": 2,
+        "Detected Issues": [
+            "Abnormal Bradycardia"
+        ],
+        "Recommendation": "Patient monitoring advised",
+        "Timestamp": "2026-05-20 12:39:17",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "211b388d",
+        "Patient ID": "P006",
+        "Alert Type": "High Risk",
+        "Severity Score": 4,
+        "Detected Issues": [
+            "AV Conduction Block"
+        ],
+        "Recommendation": "Urgent ECG evaluation recommended",
+        "Timestamp": "2026-05-20 12:40:03",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "293e884a",
+        "Patient ID": "P006",
+        "Alert Type": "High Risk",
+        "Severity Score": 4,
+        "Detected Issues": [
+            "AV Conduction Block"
+        ],
+        "Recommendation": "Urgent ECG evaluation recommended",
+        "Timestamp": "2026-05-20 12:40:42",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "470bb9d5",
+        "Patient ID": "P007",
+        "Alert Type": "Warning",
+        "Severity Score": 2,
+        "Detected Issues": [
+            "Abnormal Tachycardia"
+        ],
+        "Recommendation": "Patient monitoring advised",
+        "Timestamp": "2026-05-20 12:42:25",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "7a2ad42e",
+        "Patient ID": "P007",
+        "Alert Type": "Warning",
+        "Severity Score": 2,
+        "Detected Issues": [
+            "Abnormal Tachycardia"
+        ],
+        "Recommendation": "Patient monitoring advised",
+        "Timestamp": "2026-05-20 12:44:01",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "a1306179",
+        "Patient ID": "P001",
+        "Alert Type": "Warning",
+        "Severity Score": 2,
+        "Detected Issues": [
+            "ECG Abnormality"
+        ],
+        "Recommendation": "Patient monitoring advised",
+        "Timestamp": "2026-05-20 13:01:15",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "962f025f",
+        "Patient ID": "P002",
+        "Alert Type": "Warning",
+        "Severity Score": 2,
+        "Detected Issues": [
+            "Abnormal Tachycardia"
+        ],
+        "Recommendation": "Patient monitoring advised",
+        "Timestamp": "2026-05-20 13:01:44",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "1c1651f0",
+        "Patient ID": "P003",
+        "Alert Type": "High Risk",
+        "Severity Score": 4,
+        "Detected Issues": [
+            "Possible Heart Attack"
+        ],
+        "Recommendation": "Urgent ECG evaluation recommended",
+        "Timestamp": "2026-05-20 13:02:20",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "877aeb59",
+        "Patient ID": "P001",
+        "Alert Type": "Warning",
+        "Severity Score": 2,
+        "Detected Issues": [
+            "ECG Abnormality"
+        ],
+        "Recommendation": "Patient monitoring advised",
+        "Timestamp": "2026-05-20 13:11:24",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "6fad4e83",
+        "Patient ID": "P002",
+        "Alert Type": "Warning",
+        "Severity Score": 2,
+        "Detected Issues": [
+            "Abnormal Tachycardia"
+        ],
+        "Recommendation": "Patient monitoring advised",
+        "Timestamp": "2026-05-20 13:12:35",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "507db36b",
+        "Patient ID": "P003",
+        "Alert Type": "High Risk",
+        "Severity Score": 4,
+        "Detected Issues": [
+            "Possible Heart Attack"
+        ],
+        "Recommendation": "Urgent ECG evaluation recommended",
+        "Timestamp": "2026-05-20 13:15:02",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "16ede472",
+        "Patient ID": "P003",
+        "Alert Type": "High Risk",
+        "Severity Score": 4,
+        "Detected Issues": [
+            "Possible Heart Attack"
+        ],
+        "Recommendation": "Urgent ECG evaluation recommended",
+        "Timestamp": "2026-05-20 13:16:12",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "2256c5c9",
+        "Patient ID": "P004",
+        "Alert Type": "Emergency",
+        "Severity Score": 8,
+        "Detected Issues": [
+            "Possible Heart Attack",
+            "Ischemic Changes"
+        ],
+        "Recommendation": "Immediate cardiologist review required",
+        "Timestamp": "2026-05-20 13:23:34",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "986f0974",
+        "Patient ID": "P005",
+        "Alert Type": "Warning",
+        "Severity Score": 2,
+        "Detected Issues": [
+            "Abnormal Bradycardia"
+        ],
+        "Recommendation": "Patient monitoring advised",
+        "Timestamp": "2026-05-20 13:24:46",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "a91d2cb8",
+        "Patient ID": "P006",
+        "Alert Type": "High Risk",
+        "Severity Score": 4,
+        "Detected Issues": [
+            "AV Conduction Block"
+        ],
+        "Recommendation": "Urgent ECG evaluation recommended",
+        "Timestamp": "2026-05-20 13:26:58",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "be7355c2",
+        "Patient ID": "P007",
+        "Alert Type": "Normal",
+        "Severity Score": 0,
+        "Detected Issues": [],
+        "Recommendation": "No critical abnormality detected",
+        "Timestamp": "2026-05-20 13:28:37",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "cf019409",
+        "Patient ID": "P008",
+        "Alert Type": "Warning",
+        "Severity Score": 2,
+        "Detected Issues": [
+            "Abnormal Tachycardia"
+        ],
+        "Recommendation": "Patient monitoring advised",
+        "Timestamp": "2026-05-20 13:31:35",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "404d4573",
+        "Patient ID": "P009",
+        "Alert Type": "Emergency",
+        "Severity Score": 10,
+        "Detected Issues": [
+            "Possible AV Block",
+            "Cardiac Hypertrophy",
+            "AV Conduction Block"
+        ],
+        "Recommendation": "Immediate cardiologist review required",
+        "Timestamp": "2026-05-20 13:33:12",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "5f5298b2",
+        "Patient ID": "P010",
+        "Alert Type": "High Risk",
+        "Severity Score": 4,
         "Detected Issues": [
             "Ischemic Changes"
         ],
+        "Recommendation": "Urgent ECG evaluation recommended",
+        "Timestamp": "2026-05-20 13:34:45",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "3ced1028",
+        "Patient ID": "P011",
+        "Alert Type": "Normal",
+        "Severity Score": 0,
+        "Detected Issues": [],
+        "Recommendation": "No critical abnormality detected",
+        "Timestamp": "2026-05-20 13:36:49",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "490e8781",
+        "Patient ID": "P012",
+        "Alert Type": "Warning",
+        "Severity Score": 2,
+        "Detected Issues": [
+            "ECG Abnormality"
+        ],
         "Recommendation": "Patient monitoring advised",
-        "Timestamp": "2026-05-16 20:21:39",
+        "Timestamp": "2026-05-20 13:38:28",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "279be259",
+        "Patient ID": "P013",
+        "Alert Type": "High Risk",
+        "Severity Score": 6,
+        "Detected Issues": [
+            "Ischemic Changes",
+            "Abnormal Tachycardia"
+        ],
+        "Recommendation": "Urgent ECG evaluation recommended",
+        "Timestamp": "2026-05-20 13:39:41",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "53549e56",
+        "Patient ID": "P014",
+        "Alert Type": "Warning",
+        "Severity Score": 2,
+        "Detected Issues": [
+            "ECG Abnormality"
+        ],
+        "Recommendation": "Patient monitoring advised",
+        "Timestamp": "2026-05-20 13:41:30",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "fc57e584",
+        "Patient ID": "P015",
+        "Alert Type": "Normal",
+        "Severity Score": 0,
+        "Detected Issues": [],
+        "Recommendation": "No critical abnormality detected",
+        "Timestamp": "2026-05-20 13:43:07",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "e5107480",
+        "Patient ID": "P016",
+        "Alert Type": "Warning",
+        "Severity Score": 2,
+        "Detected Issues": [
+            "Abnormal Tachycardia"
+        ],
+        "Recommendation": "Patient monitoring advised",
+        "Timestamp": "2026-05-20 13:45:35",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "b04172fb",
+        "Patient ID": "P017",
+        "Alert Type": "Normal",
+        "Severity Score": 0,
+        "Detected Issues": [],
+        "Recommendation": "No critical abnormality detected",
+        "Timestamp": "2026-05-20 13:47:14",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "d619ea01",
+        "Patient ID": "P018",
+        "Alert Type": "High Risk",
+        "Severity Score": 6,
+        "Detected Issues": [
+            "Ischemic Changes",
+            "Abnormal Tachycardia"
+        ],
+        "Recommendation": "Urgent ECG evaluation recommended",
+        "Timestamp": "2026-05-20 13:48:59",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "ecf7c0a6",
+        "Patient ID": "P019",
+        "Alert Type": "Normal",
+        "Severity Score": 0,
+        "Detected Issues": [],
+        "Recommendation": "No critical abnormality detected",
+        "Timestamp": "2026-05-20 13:50:25",
+        "Status": "Active"
+    },
+    {
+        "Alert ID": "4968180a",
+        "Patient ID": "P020",
+        "Alert Type": "High Risk",
+        "Severity Score": 4,
+        "Detected Issues": [
+            "AV Conduction Block"
+        ],
+        "Recommendation": "Urgent ECG evaluation recommended",
+        "Timestamp": "2026-05-20 13:51:38",
         "Status": "Active"
     }
 ]
