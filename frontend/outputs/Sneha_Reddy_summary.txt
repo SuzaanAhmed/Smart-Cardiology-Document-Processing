@@ -1,0 +1,42 @@
+========== REPORT SUMMARY ==========
+
+Summary:
+
+Clinical ECG Summary:
+
+    Patient Sneha Reddy,
+    age 34,
+    Female.
+
+    ECG taken on
+    02/25/2025.
+
+    Heart rate is
+    88 bpm.
+
+    PR interval
+    178,
+
+    QRS duration
+    100,
+
+    QT interval
+    380.
+
+    Diagnosis:
+    Sinus Rhythm.
+
+Key Findings:
+1. Clinical ecg summary:
+
+    patient sneha reddy,
+    age 34,
+    female
+2. Ecg taken on
+    02/25/2025
+
+Severity Level:
+NORMAL
+
+Critical Points:
+None

@@ -1,0 +1,14 @@
+========== REPORT SUMMARY ==========
+
+Summary:
+
+Heart Failure,
+
+Key Findings:
+1. Heart failure,
+
+Severity Level:
+NORMAL
+
+Critical Points:
+None

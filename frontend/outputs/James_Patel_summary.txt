@@ -1,0 +1,42 @@
+========== REPORT SUMMARY ==========
+
+Summary:
+
+Clinical ECG Summary:
+
+    Patient James Patel,
+    age 54,
+    Male.
+
+    ECG taken on
+    03/09/2024.
+
+    Heart rate is
+    84 bpm.
+
+    PR interval
+    200,
+
+    QRS duration
+    108,
+
+    QT interval
+    410.
+
+    Diagnosis:
+    St Depression, First Degree Av Block.
+
+Key Findings:
+1. Clinical ecg summary:
+
+    patient james patel,
+    age 54,
+    male
+2. Ecg taken on
+    03/09/2024
+
+Severity Level:
+MODERATE
+
+Critical Points:
+None

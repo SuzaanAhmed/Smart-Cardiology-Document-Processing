@@ -1,0 +1,42 @@
+========== REPORT SUMMARY ==========
+
+Summary:
+
+Clinical ECG Summary:
+
+    Patient Maria Gonzalez,
+    age 41,
+    Female.
+
+    ECG taken on
+    01/15/2025.
+
+    Heart rate is
+    58 bpm.
+
+    PR interval
+    180,
+
+    QRS duration
+    92,
+
+    QT interval
+    390.
+
+    Diagnosis:
+    Sinus Bradycardia.
+
+Key Findings:
+1. Clinical ecg summary:
+
+    patient maria gonzalez,
+    age 41,
+    female
+2. Ecg taken on
+    01/15/2025
+
+Severity Level:
+NORMAL
+
+Critical Points:
+None
