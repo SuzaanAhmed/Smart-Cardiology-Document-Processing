@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Search Patient</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='style.css') }}">
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <h2>🫀 Cardio AI</h2>
+
+    <a href="/dashboard">🏠 Dashboard</a>
+
+    <a href="/upload">📤 Upload ECG</a>
+
+    <a href="/prediction">🧠 Prediction</a>
+
+    <a href="/alerts">🚨 Alerts</a>
+
+    <a href="/analytics">📊 Analytics</a>
+
+    <a href="/search">🔍 Search Patient</a>
+
+</div>
+
+<!-- MAIN CONTENT -->
+
+<div class="main-content">
+
+    <!-- PAGE HEADER -->
+
+    <div class="page-header">
+
+        <h1>🔍 Search Patient</h1>
+
+        <p>
+            Search patient records using
+            Patient ID or Patient Name.
+        </p>
+
+    </div>
+
+    <!-- SEARCH BOX -->
+
+    <div class="upload-box">
+
+        <form method="POST">
+
+            <input type="text"
+                   name="query"
+                   placeholder="Enter Patient ID or Patient Name"
+                   required>
+
+            <br><br>
+
+            <button type="submit">
+
+                Search Patient
+
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- SEARCH RESULT -->
+
+    {% if patient %}
+
+    <div class="prediction-section">
+
+        <h2>🧾 Patient Record</h2>
+
+        <div class="prediction-card">
+
+            <p>
+
+                <b>Patient Name:</b>
+
+                {{ patient["Patient Name"] }}
+
+            </p>
+
+            <p>
+
+                <b>Patient ID:</b>
+
+                {{ patient["Patient ID"] }}
+
+            </p>
+
+            <p>
+
+                <b>Diagnosis:</b>
+
+                {{ patient["Diagnosis"] }}
+
+            </p>
+
+            <p>
+
+                <b>Risk Level:</b>
+
+                {{ patient["Risk Level"] }}
+
+            </p>
+
+            <p>
+
+                <b>Probability:</b>
+
+                {{ patient["Probability"] }}%
+
+            </p>
+
+            <p>
+
+                <b>Suggested Action:</b>
+
+                {{ patient["Suggested Action"] }}
+
+            </p>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

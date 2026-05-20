@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Dashboard</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <h2>🫀 Cardio AI</h2>
+
+    <a href="/dashboard">🏠 Dashboard</a>
+
+    <a href="/upload">📤 Upload ECG</a>
+
+    <a href="/prediction">🧠 Prediction</a>
+
+    <a href="/alerts">🚨 Alerts</a>
+
+    <a href="/analytics">📊 Analytics</a>
+
+    <a href="/search">🔍 Search Patient</a>
+
+</div>
+
+<!-- MAIN CONTENT -->
+
+<div class="main-content">
+
+    <!-- HEADER -->
+
+    <div class="page-header">
+
+        <h1>🫀 Smart Cardiology Dashboard</h1>
+
+        <p>
+
+            AI-powered ECG analysis, prediction,
+            alert monitoring and analytics system.
+
+        </p>
+
+    </div>
+
+    <!-- DASHBOARD CARDS -->
+
+    <div class="card-container">
+
+        <!-- ECG UPLOAD -->
+
+        <div class="dashboard-card">
+
+            <h3>📤 Upload ECG</h3>
+
+            <p>
+
+                Upload ECG image for OCR and NLP analysis.
+
+            </p>
+
+            <a href="/upload">
+
+                <button>
+
+                    Open
+
+                </button>
+
+            </a>
+
+        </div>
+
+        <!-- AI PREDICTION -->
+
+        <div class="dashboard-card">
+
+            <h3>🧠 AI Prediction</h3>
+
+            <p>
+
+                View patient risk prediction results.
+
+            </p>
+
+            <a href="/prediction">
+
+                <button>
+
+                    Open
+
+                </button>
+
+            </a>
+
+        </div>
+
+        <!-- ALERTS -->
+
+        <div class="dashboard-card">
+
+            <h3>🚨 Alerts</h3>
+
+            <p>
+
+                Check emergency and high-risk alerts.
+
+            </p>
+
+            <a href="/alerts">
+
+                <button>
+
+                    Open
+
+                </button>
+
+            </a>
+
+        </div>
+
+        <!-- ANALYTICS -->
+
+        <div class="dashboard-card">
+
+            <h3>📊 Analytics</h3>
+
+            <p>
+
+                View analytics charts and dashboard data.
+
+            </p>
+
+            <a href="/analytics">
+
+                <button>
+
+                    Open
+
+                </button>
+
+            </a>
+
+        </div>
+
+        <!-- SEARCH -->
+
+        <div class="dashboard-card">
+
+            <h3>🔍 Search Patient</h3>
+
+            <p>
+
+                Search patient records using ID or name.
+
+            </p>
+
+            <a href="/search">
+
+                <button>
+
+                    Open
+
+                </button>
+
+            </a>
+
+        </div>
+
+        <!-- MODULE 7 PYQT -->
+
+        <div class="dashboard-card">
+
+            <h3>🖥️ Advanced Dashboard</h3>
+
+            <p>
+
+                Launch PyQt real-time analytics dashboard.
+
+            </p>
+
+            <a href="/open_dashboard">
+
+                <button>
+
+                    Launch
+
+                </button>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
