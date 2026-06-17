@@ -1,14 +1,12 @@
 {
-    "patient": {
-        "name": "Ravi Kumar",
-        "age": 60,
-        "gender": "Male"
-    },
-    "vitals": {
-        "blood_pressure": 150,
-        "cholesterol": 270,
-        "diabetes": "Yes",
-        "smoking": "Yes",
-        "ecg_result": "Abnormal"
-    }
+    "Patient Name": "Laura Stevens",
+    "Age": "32",
+    "Gender": "Female",
+    "ECG Date": "12/01/2024",
+    "Heart Rate": "72",
+    "PR Interval": "150",
+    "QRS Duration": "90",
+    "QT Interval": "360",
+    "Diagnosis": "Normal Sinus Rhythm, Sinus Rhythm, Ischemic, No Acute Ischemic Changes",
+    "Confidence Score": "1.00"
 }

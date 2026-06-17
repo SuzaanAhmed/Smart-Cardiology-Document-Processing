@@ -33,31 +33,32 @@ model.fit(X, y)
 @app.route('/')
 def home():
 
-    # read hospital-style JSON
+    # read Module 1 output
     with open("patient_report.json") as f:
         data = json.load(f)
 
-#with open("../Mod1/outputs/patient_report.json") as f:
-#    data = json.load(f)
+    # -------------------------------
+    # EXTRACT ECG DATA
+    # -------------------------------
+    age = int(data.get("Age", 0))
+    gender = 1 if data.get("Gender", "").lower() == "male" else 0
 
+    diagnosis = data.get("Diagnosis", "").lower()
 
-    patient = data.get("patient", {})
-    vitals = data.get("vitals", {})
+    # ECG mapping
+    ecg = 1 if "ischemic" in diagnosis or "abnormal" in diagnosis else 0
 
-    # extract values
-    age = patient.get("age", 0)
-    gender = 1 if patient.get("gender", "").lower() == "male" else 0
-
-    bp = vitals.get("blood_pressure", 0)
-    chol = vitals.get("cholesterol", 0)
-
-    diabetes = 1 if vitals.get("diabetes", "").lower() == "yes" else 0
-    smoking = 1 if vitals.get("smoking", "").lower() == "yes" else 0
-    ecg = 1 if vitals.get("ecg_result", "").lower() == "abnormal" else 0
+    # default values (not available in ECG)
+    bp = 120
+    chol = 200
+    diabetes = 0
+    smoking = 0
 
     input_data = np.array([[age, gender, bp, diabetes, smoking, ecg, chol]])
 
-    # prediction
+    # -------------------------------
+    # PREDICTION
+    # -------------------------------
     prob = model.predict_proba(input_data)[0][1]
 
     if prob < 0.33:
@@ -71,26 +72,9 @@ def home():
         action = "Immediate Medical Attention"
 
     # -------------------------------
-    # SAVE OUTPUT
-    # -------------------------------
-    output_data = {
-        "patient": patient,
-        "vitals": vitals,
-        "prediction": {
-            "risk": risk,
-            "probability": round(prob*100,2),
-            "action": action
-        }
-    }
-
-    with open("prediction_output.json", "w") as f:
-        json.dump(output_data, f, indent=4)
-
-    # -------------------------------
     return render_template(
         "index.html",
-        patient=patient,
-        vitals=vitals,
+        data=data,
         prediction=risk,
         probability=round(prob*100,2),
         action=action

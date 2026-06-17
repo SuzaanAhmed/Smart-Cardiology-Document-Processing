@@ -12,7 +12,7 @@ text-align:center;
 background:white;
 padding:30px;
 margin:50px auto;
-width:400px;
+width:500px;
 border-radius:10px;
 box-shadow:0 0 10px gray;
 }
@@ -21,26 +21,31 @@ box-shadow:0 0 10px gray;
 <body>
 
 <div class="container">
+
 <h2>Cardiac Risk Prediction</h2>
 
 <h3>Patient Details</h3>
-<p>Name: {{ patient.name }}</p>
-<p>Age: {{ patient.age }}</p>
-<p>Gender: {{ patient.gender }}</p>
+<p><b>Name:</b> {{ data["Patient Name"] }}</p>
+<p><b>Age:</b> {{ data["Age"] }}</p>
+<p><b>Gender:</b> {{ data["Gender"] }}</p>
+<p><b>ECG Date:</b> {{ data["ECG Date"] }}</p>
 
-<h3>Vitals</h3>
-<p>Blood Pressure: {{ vitals.blood_pressure }}</p>
-<p>Cholesterol: {{ vitals.cholesterol }}</p>
-<p>Diabetes: {{ vitals.diabetes }}</p>
-<p>Smoking: {{ vitals.smoking }}</p>
-<p>ECG: {{ vitals.ecg_result }}</p>
+<h3>ECG Parameters</h3>
+<p><b>Heart Rate:</b> {{ data["Heart Rate"] }}</p>
+<p><b>PR Interval:</b> {{ data["PR Interval"] }}</p>
+<p><b>QRS Duration:</b> {{ data["QRS Duration"] }}</p>
+<p><b>QT Interval:</b> {{ data["QT Interval"] }}</p>
+
+<h3>Diagnosis</h3>
+<p>{{ data["Diagnosis"] }}</p>
+<p><b>Confidence Score:</b> {{ data["Confidence Score"] }}</p>
 
 <hr>
 
-<h3>Prediction</h3>
+<h3>Prediction Result</h3>
 <p><b>Risk Level:</b> {{ prediction }}</p>
 <p><b>Probability:</b> {{ probability }}%</p>
-<p><b>Action:</b> {{ action }}</p>
+<p><b>Suggested Action:</b> {{ action }}</p>
 
 </div>
 
