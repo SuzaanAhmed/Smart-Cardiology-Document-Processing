@@ -9,7 +9,7 @@ app = Flask(__name__)
 # -------------------------------
 # TRAINING DATA
 # -------------------------------
-data = {
+data_train = {
     "Age":[45,50,36,60,55,48,39,65,52,47],
     "Gender":[1,1,0,1,0,1,0,1,1,0],
     "BP":[130,140,120,150,135,128,118,160,142,125],
@@ -20,7 +20,7 @@ data = {
     "Risk":[1,1,0,1,1,0,0,1,1,0]
 }
 
-df = pd.DataFrame(data)
+df = pd.DataFrame(data_train)
 X = df.drop("Risk", axis=1)
 y = df["Risk"]
 
@@ -48,7 +48,7 @@ def home():
     # ECG mapping
     ecg = 1 if "ischemic" in diagnosis or "abnormal" in diagnosis else 0
 
-    # default values (not available in ECG)
+    # default values
     bp = 120
     chol = 200
     diabetes = 0
@@ -70,6 +70,22 @@ def home():
     else:
         risk = "HIGH"
         action = "Immediate Medical Attention"
+
+    # -------------------------------
+    # SAVE OUTPUT JSON
+    # -------------------------------
+    output_data = {
+        "Patient Name": data.get("Patient Name"),
+        "Age": age,
+        "Gender": data.get("Gender"),
+        "Diagnosis": data.get("Diagnosis"),
+        "Risk Level": risk,
+        "Probability": round(prob*100,2),
+        "Suggested Action": action
+    }
+
+    with open("prediction_output.json", "w") as f:
+        json.dump(output_data, f, indent=4)
 
     # -------------------------------
     return render_template(
